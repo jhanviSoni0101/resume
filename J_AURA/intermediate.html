@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: system-ui;
+             background-color: #A78CF1;
+             color: #5B3E96;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 30px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            color: #dfc9f7;
+            font-weight: 500;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        select,
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        select option:hover {
+            background-color: white;
+            color: #5B3E96;
+        }
+
+        select {
+            background-color: #C9B6F2;
+            color: #5B3E96;
+        }
+
+        button {
+            background-color: #C9B6F2;
+            color: #5B3E96;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #A78CF1;
+            color: white;
+        }
+
+        .circle {
+            margin-top: 50px;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, #C9B6F2, #A78CF1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #5B3E96;
+            text-align: center;
+        }
+
+        .timer {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>J_Aura</h1>
+    <p>Take a deep breadth & relax 💜</p>
+    <div class="controls">
+        <select id="technique">
+            <option value="Extended">Extended Breathing</option>
+            <option value="Resonant">Resonant Breathing</option>
+            <option value="BoxPlus">Advanced Box</option>
+        </select>
+
+        <button onclick="gobeg()">Beginner</button>
+        <button id="stop">Stop</button>
+
+    </div>
+    <div class="circle">
+        <div id="action">Inhale</div>
+        <div id="count">0</div>
+    </div>
+    <div class="timer">Session:0:00</div>
+</body>
+<script>
+    let action = document.getElementById('action');
+    let timer = document.querySelector('.timer');
+    let count = document.getElementById('count');
+    let Stopbtn = document.getElementById('stop');
+    let Technique = document.getElementById('technique');
+    let Action = "Inhale";
+    let Count = 1;
+    let interval = null;
+    let session = 0;
+    let music=new Audio('music.mp3');
+    function start() {
+        interval = setInterval(() => {
+            count.innerText = Count;
+            action.innerText = Action;
+            session++;
+            let min = Math.floor(session / 60);
+            let sec = session % 60;
+            if (sec < 10) {
+                timer.innerHTML = "Session:" + min + ":0" + sec;
+            }
+            else {
+                timer.innerHTML = "Session:" + min + ":" + sec;
+            }
+            if (Technique.value == "Extended") {
+                if (Action == "Inhale" && Count > 3) {
+                    Action = "Exhale";
+                    Count = 0;
+                }
+                else if (Action == "Exhale" && Count > 5) {
+                    Action = "Inhale";
+                    Count = 0;
+                }
+            }
+            if (Technique.value == "Resonant") {
+                if (Action == "Inhale" && Count > 4) {
+                    Action = "Exhale";
+                    Count = 0;
+                }
+                else if (Action == "Exhale" && Count > 4) {
+                    Action = "Inhale";
+                    Count = 0;
+                }
+            }
+            if (Technique.value == "BoxPlus") {
+                if (Action == "Inhale" && Count > 3) {
+                    Action = "Hold";
+                    Count = 0;
+                }
+                else if (Action == "Hold" && Count > 3) {
+                    Action = "Exhale";
+                    Count = 0;
+                }
+                else if (Action == "Exhale" && Count > 3) {
+                    Action = "Inhale";
+                    Count = 0;
+                }
+            }
+            Count++;
+        }, 1000);
+       
+    }
+     start();
+        Stopbtn.addEventListener('click', function () {
+            if (interval) {
+                clearInterval(interval);
+                interval = null;
+                Stopbtn.innerText="Start";
+                music.pause();
+            }
+            else{
+                start();
+                Stopbtn.innerText="Stop";
+                music.play();
+            }
+        });
+        function gobeg(){
+            window.location.href='welcome.html';
+        }
+</script>
+
+</html>

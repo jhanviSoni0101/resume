@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-image: url(backgorund.avif);
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 60%;
+            height: 80vh;
+            background-color: white;
+            display: flex;
+            border-radius: 10px;
+        }
+
+        .left {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .left h3 {
+            margin: 0px 0px 30px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .left input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #c7b8ec;
+            background: #fff;
+        }
+
+        .signup {
+            width: 100%;
+            padding: 10px;
+            background: #ba8df5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 0px 40px 0px;
+        }
+
+        .signup:hover {
+            background-color: #7c59d9;
+        }
+
+        .text {
+            text-align: center;
+            font-size: 16px;
+
+        }
+
+        .text a {
+            color: #7c59d9;
+            text-decoration: none;
+            font-weight: 600;
+
+        }
+
+        .right {
+            width: 50%;
+
+            background-size: contain;
+            background-position: center;
+        }
+
+        .right img {
+            width: 100%;
+            height: 80vh;
+        }
+
+        .error-msg {
+            color: red !important;
+            text-align: left !important;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="left" action="login.html" onsubmit="return signup()">
+            <h3>Create Account</h3>
+            <input type="text" id="name" placeholder="Your name">
+            <p class="error-msg" id="errorname">*please enter name</p>
+            <input type="email" id="email" placeholder="Your email">
+            <p class="error-msg" id="erroremail">*please enter email</p>
+            <input type="password" id="password" placeholder="Your password">
+            <p class="error-msg" id="errorpass">*please enter password</p>
+            <input type="password" id="cpassword" placeholder="Repeat your password">
+            <p class="error-msg" id="errorcpass1">*please enter confirm password</p>
+            <p class="error-msg" id="errorcpass2">* password didn't match</p>
+            <button class="signup">Sign up</button>
+            <p class="text">Already have an account? <a href="#">Login here</a></p>
+        </form>
+        <div class="right">
+            <img src="meditatef.avif" alt="">
+        </div>
+    </div>
+</body>
+<script>
+    let name = document.getElementById('name');
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let cpassword = document.getElementById('cpassword');
+
+    function signup() {
+        if (name.value.length == 0) {
+            errorname.style.display = "block";
+            return false;
+        }
+        else if (email.value.length == 0) {
+            erroremail.style.display = "block";
+            errorname.style.display = "none";
+            return false;
+        }
+        else if (password.value.length == 0) {
+            errorpass.style.display = "block";
+            erroremail.style.display = "none";
+            errorname.style.display = "none";
+            return false;
+
+        }
+        else if (cpassword.value.length == 0) {
+            errorcpass1.style.display = "block";
+            errorpass.style.display = "none";
+            erroremail.style.display = "none";
+            errorname.style.display = "none";
+            return false;
+        }
+        else if (cpassword.value != password.value) {
+            errorcpass1.style.display = "none";
+            errorcpass2.style.display = "block";
+            errorpass.style.display = "none";
+            erroremail.style.display = "none";
+            errorname.style.display = "none";
+            return false;
+        }
+    }
+
+</script>
+
+</html>
