@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: cursive;
+            background: linear-gradient(55deg, pink, yellow);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            width: 30%;
+            padding: 40px 40px;
+            border-radius: 10px;
+            box-shadow: 0 9px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .calculator>h1 {
+            color: #4caf50;
+            margin-bottom: 20px;
+            font-size: 35px;
+        }
+
+        .calculator>p {
+            color: #88cf8a;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .calculator>input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 10px;
+        }
+
+        .calculator>button {
+            color: green;
+            border: none;
+            padding: 10px 20px;
+            border-bottom-left-radius: 40%;
+            background: linear-gradient(55deg, yellow, rgb(255, 204, 0));
+            cursor: pointer;
+        }
+        .calculator>button:hover{
+           background: linear-gradient(55deg, yellow, rgb(245, 153, 5));
+        }
+         .result {
+            margin-top: 20px;
+            color: green;
+            font-size: 18px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <h1>Age Calculator</h1>
+        <p>Enter Your Birthdate:</p>
+        <input type="date" id="birthdate" placeholder="DD-MM-YYYY">
+        <button onclick="calculate()">Calculate Age</button>
+        <div class="result" id="result"></div>
+    </div>
+</body>
+<script>
+    let birthdate= document.getElementById("birthdate");
+function calculate()
+{
+     let result=document.getElementById('result');
+    let date= birthdate.value; 
+    console.log(date);
+    let Year= new Date(date).getFullYear();
+    let Cyear=new Date().getFullYear();
+    let age=Cyear-Year;
+    result.innerHTML="your age is"+ age ;
+   result.style.display="block";
+}
+
+   
+</script>
+</html>

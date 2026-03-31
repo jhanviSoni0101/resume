@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+             box-sizing: border-box;
+            font-family: cursive;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        .Image{
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+justify-content: center;
+
+        }
+        .Image>img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .content{
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        }
+        .content>h1{
+            font-size: 50px;
+            font-style: italic;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+         .content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+        }
+        .arrow-btn{
+             font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+           border: 1px solid white;
+           border-radius: 50%;
+           padding: 10px;
+        }
+      
+    </style>
+</head>
+
+<body>
+    <div class="Image">
+        <img src="agebg.png" alt="">
+<div class="content">
+    <h1>How Old Am I</h1>
+    <p>Check your current age based upon your date of birth</p>
+      <a href="agecalculator.html">
+        <i class="fa-solid fa-arrow-right arrow-btn"></i>
+    </a>
+</div>
+    </div>
+</body>
+
+</html>
