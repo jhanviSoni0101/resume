@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+        .time{
+            font-size:2rem;
+            margin: 20px;
+        }
+        button{
+            padding: 10px 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Focus for 25 seconds</h2>
+    <div class="time" >25</div>
+    <button onclick="start()">Start</button>
+</body>
+<script>
+    let t=25;
+    let time=document.querySelector(".time");
+    function start()
+    {
+    timer=setInterval(function()
+{
+    time.innerHTML=t;
+    t--;
+     
+    if(t<0)
+{
+    time.innerHTML="Done✨";
+}
+},1000);
+    }
+</script>
+</html>

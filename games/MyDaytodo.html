@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhanvi's Thoughts</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #FFFDF7;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .top {
+        background-color: #F9E79F;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .top>h1 {
+        font-family: 'Playfair Display', sans-serif;
+        font-size: 34px;
+        color: #4A3B28;
+        letter-spacing: 1px;
+    }
+
+    .top>p {
+        font-size: 14px;
+        color: #7A6A4F;
+    }
+
+    .thought {
+        max-width: 800px;
+        margin: 40px auto;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        padding: 20px;
+        background-color: #FFFFFF;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .thought>textarea {
+        flex: 1;
+        height: 110px;
+        border: 1px solid #E1B93C;
+        border-radius: 12px;
+        padding: 15px;
+        font-size: 15px;
+    }
+
+    .add-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #F6D776;
+        border: none;
+        font-size: 30px;
+        font-weight: bold;
+        color: #4A3B28;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    .add-btn:hover {
+        background-color: #EBCB63;
+    }
+
+    .thoughts {
+        padding: 20px 50px 60px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+    }
+
+    .thought-card {
+        background-color: #FFF4C2;
+        border-radius: 16px;
+        padding: 18px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .thought-card>p {
+        font-size: 14px;
+        color: #4A3B28;
+    }
+
+    .actions {
+        margin-top: 15px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .actions button {
+        background-color: #F6D776;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        cursor: pointer;
+        color: #4A3B28;
+
+    }
+</style>
+
+<body>
+    <header class="top">
+        <h1>Jhanvi's Thoughts</h1>
+        <p>write what you feel</p>
+    </header>
+    <section class="thought">
+        <textarea class="my_textarea" placeholder="..."></textarea>
+        <button class="add-btn">+</button>
+    </section>
+    <section class="thoughts">
+        <!-- <div class="thought-card">
+            <p>This is a soft little thought written with calm.</p>
+            <div class="actions">
+                <button>Edit</button>
+                <button>Delete</button>
+            </div>
+        </div> -->
+    </section>
+</body>
+<script>
+    let textarea = document.querySelector('.my_textarea');
+    let addbtn = document.querySelector('.add-btn');
+    let thoughtsContainer = document.querySelector('.thoughts');
+    function emptyForm() {
+        textarea.value = "";
+    }
+    class Jahnvi {
+        constructor(key) {
+            this.key = "thoughts";
+            this.updateIndex = undefined;
+        }
+        settodos(todo_obj) {
+            let todo_data = this.gettodos();
+            todo_data ? todo_data.push(todo_obj) : todo_data = [todo_obj];
+            localStorage.setItem(this.key, JSON.stringify(todo_data));
+        }
+        gettodos() {
+            return JSON.parse(localStorage.getItem(this.key));
+        }
+        updatetodo(t, i) {
+            textarea.value = t.title;
+            addbtn.textContent = "✔";
+            this.updateIndex = i;
+            addbtn.removeEventListener('click', addtodo);
+            addbtn.addEventListener('click', () => { this.saveTodo(this) });
+        }
+         async saveTodo(This) {
+            let todo_obj = { title: textarea.value };
+            let todo_data = This.gettodos();
+            todo_data[this.updateIndex] = todo_obj;
+            localStorage.setItem(this.key, JSON.stringify(todo_data));
+           await loadData();
+           await  emptyForm();
+            addbtn.innerText = "+";
+            addbtn.removeEventListener('click', () => { this.saveTodo(this) });
+            addbtn.addEventListener('click', addtodo);
+
+        }
+        deletetodo(i) {
+            let todo_data = this.gettodos();
+            todo_data.splice(i, 1);
+            localStorage.setItem(this.key, JSON.stringify(todo_data));
+            loadData();
+        }
+
+    }
+    let todo = new Jahnvi("thoughts");
+    function loadData() {
+        thoughtsContainer.innerHTML = "";
+        let all_todos = todo.gettodos();
+        if (all_todos == null || all_todos.length == 0) {
+            thoughtsContainer.innerHTML = "<p style='text-align:center;color:#7A6A4F'>NO THOUGHTS YET🌼</p>";
+        }
+        all_todos.forEach(function (t, i) {
+            let card = document.createElement('div');
+            card.className = "thought-card";
+            let p = document.createElement('p');
+            p.innerText = t.title;
+            let actions = document.createElement('div');
+            actions.className = "actions";
+            let editbtn = document.createElement('button');
+            editbtn.innerText = "Edit";
+            editbtn.addEventListener('click', () => { todo.updatetodo(t, i); });
+
+            let dltbtn = document.createElement('button');
+            dltbtn.innerText = "Delete";
+            dltbtn.addEventListener('click', () => {
+                todo.deletetodo(i);
+            });
+
+            actions.appendChild(editbtn);
+            actions.appendChild(dltbtn);
+            card.appendChild(p);
+            card.appendChild(actions);
+            thoughtsContainer.appendChild(card);
+        });
+    }
+    function addtodo(event) {
+        event.preventDefault();
+        let todo_obj = { title: textarea.value };
+        todo.settodos(todo_obj);
+        loadData();
+        emptyForm();
+    }
+    addbtn.addEventListener('click', addtodo);
+    window.addEventListener('load', loadData);
+</script>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Game</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #3f305e;
+            color: yellow;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            margin: 10px 0;
+        }
+
+        .main {
+            max-width: 500px;
+            margin-top: 10px;
+        }
+
+        .cardbox {
+            background: rgb(243, 243, 77);
+            border-radius: 10px;
+            outline: 5px solid rgb(64, 28, 64);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+        }
+
+        .cardbox div {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #54417a;
+            transition: .4s;
+        }
+
+        #timer {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .coverscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #restrt {
+            padding: 8px;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgb(51, 26, 81);
+            color: yellow;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Match The Emojis</h1>
+
+    <div class="main container">
+        <div class="row g-3" id="gameRow"></div>
+    </div>
+
+    <div id="timer">Time:60</div>
+
+    <div class="coverscreen">
+        <div class="box">
+            <h2 id="msg">Time Up!</h2>
+            <button id="restrt">Restart</button>
+        </div>
+    </div>
+
+    <script>
+
+        let emojis = ["😊", "🌙", "🦚", "🍉", "🌻", "💜", "💛", "💪"];
+        let main = document.querySelector('#gameRow');
+        let timer = document.getElementById('timer');
+        let coverScreen = document.querySelector(".coverscreen");
+        let msg = document.getElementById('msg');
+        let matchedCount = 0;
+        let restartBtn = document.getElementById('restrt');
+
+        for (let i = 0; i < 16; i++) {
+            main.innerHTML += `<div class="col-3"><div class="cardbox"></div></div>`;
+        }
+
+        function shuffleNumbers(n) {
+            const arr = Array.from({ length: n }, (_, i) => i);
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        let arr16 = shuffleNumbers(16);
+        let pairIndex = [];
+        let pairEmoji = [];
+        let block = document.querySelectorAll('.cardbox');
+
+        function waitForTransition(elem) {
+            return new Promise(resolve => {
+                elem.addEventListener('transitionend', resolve, { once: true });
+            });
+        }
+
+        arr16.forEach(function (value, index) {
+
+            block[value].innerHTML = emojis[index % 8] + '<div></div>';
+
+            block[value].addEventListener('click', async function () {
+
+                if (this.querySelector('div').style.top == "100%") return;
+
+                this.querySelector('div').style.top = "100%";
+
+                pairIndex.push(value);
+                pairEmoji.push(emojis[index % 8]);
+
+                if (pairIndex.length == 2) {
+
+                    if (pairEmoji[0] != pairEmoji[1]) {
+
+                        await waitForTransition(block[value]);
+
+                        block[pairIndex[0]].querySelector('div').style.top = "0%";
+                        block[pairIndex[1]].querySelector('div').style.top = "0%";
+
+                    } else {
+
+                        matchedCount += 2;
+
+                        block[pairIndex[0]].style.pointerEvents = "none";
+                        block[pairIndex[1]].style.pointerEvents = "none";
+
+                        if (matchedCount === 16) {
+                            clearInterval(timerinterval);
+                            msg.innerText = "Well done 🎉";
+                            coverScreen.style.display = "flex";
+                        }
+                    }
+
+                    pairIndex = [];
+                    pairEmoji = [];
+                }
+
+            });
+
+        });
+
+        let t = 59;
+
+        let timerinterval = setInterval(() => {
+
+            if (t <= 0) {
+                coverScreen.style.display = "flex";
+                clearInterval(timerinterval);
+                t = 0;
+            }
+
+            timer.innerHTML = "Time:" + t;
+            t--;
+
+        }, 1000);
+
+        restartBtn.addEventListener('click', () => location.reload());
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: burlywood;
+        }
+
+        h2 {
+            text-align: center;
+            background: rgb(236, 176, 96);
+            padding: 10px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            margin: 20px;
+        }
+
+        .left {
+            width: 40%;
+
+        }
+
+        .left>input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .button>.Add {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 8px 10px;
+        }
+
+        .right {
+            width: 60%;
+            background-color: white;
+        }
+
+        .right>h3 {
+            background: rgb(241, 205, 158);
+            color: rgb(62, 34, 34);
+            padding: 10px;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid rgb(62, 34, 34);
+        }
+
+        .delete {
+            background: rgb(58, 30, 30);
+            color: white;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid rgb(78, 74, 74);
+        }
+
+        th {
+            background-color: rgb(241, 205, 158);
+            color: rgb(62, 34, 34);
+        }
+        .btn{
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            background-color: rgb(51, 29, 29);
+            color: white;
+        }
+        #updt_btn{
+            display: none;
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 8px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>MY TO_DO LIST</h2>
+    <div class="container">
+        <div class="left">
+            <input type="text" placeholder="New Task...." id="todo">
+            <div class="button">
+                <button class="Add" id="add_btn">Add</button>
+                <button  id="updt_btn">Update</button>
+            </div>
+            <!-- <div id="todolist"></div> -->
+        </div>
+        <div class="right">
+            <h3>MY TASK LIST</h3>
+
+            <!-- <div class="task">
+                <span id="todolist"></span>
+                 <div class="delete">X</div> 
+            </div>  -->
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="todos"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    let todo = document.querySelector("#todo");
+    let btn1 = document.querySelector("#add_btn");
+    let btn2 = document.querySelector("#updt_btn");
+    let todos = document.querySelector("#todos");
+    let todo_key = "task";
+    let savechanges = undefined;
+    btn1.addEventListener('click', function () {
+        if (todo.value.trim()) {
+            if (!localStorage.getItem("task")) {
+                let todo_arr = [todo.value];
+                localStorage.setItem(todo_key, JSON.stringify(todo_arr));
+            } else {
+                let all_todos = localStorage.getItem(todo_key);
+                let all_todos_arr = JSON.parse(all_todos);
+                all_todos_arr.push(todo.value);
+                localStorage.setItem(todo_key, JSON.stringify(all_todos_arr));
+            }
+        }
+        todo.value = "";
+        location.reload();
+
+    });
+    window.addEventListener('load', function () {
+        let all_todos = localStorage.getItem(todo_key);
+        let all_todos_arr = JSON.parse(all_todos);
+
+        all_todos_arr.forEach((t, i) => {
+            todos.innerHTML += `<tr>
+        <td>${i + 1}</td>
+        <td>${t}</td>
+        <td>
+            <button class="btn" onclick="update_todo(${i})">Edit</button>
+            <button  class="btn" onclick="delete_todo(${i})">Delete</button>
+            </td>
+            </tr>`;
+        });
+    });
+
+  function delete_todo(index)
+  {
+let all_todos=localStorage.getItem(todo_key);
+let all_todos_arr=JSON.parse(all_todos);
+all_todos_arr.splice(index,1);
+localStorage.setItem(todo_key,JSON.stringify(all_todos_arr));
+location.reload();
+  }
+
+  function update_todo(index)
+  {
+  btn1.style.display="none";
+  btn2.style.display="inline-block";
+  let all_todos=localStorage.getItem(todo_key);
+  let all_todos_arr=JSON.parse(all_todos);
+  todo.value=all_todos_arr[index];
+  savechanges=index;
+  }
+  btn2.addEventListener('click',function()
+{
+    let all_todos=localStorage.getItem(todo_key);
+    let all_todos_arr=JSON.parse(all_todos);
+    all_todos_arr[savechanges]=todo.value;
+    localStorage.setItem(todo_key,JSON.stringify(all_todos_arr));
+    location.reload();
+    savechanges=undefined;
+})
+</script>
+
+</html>

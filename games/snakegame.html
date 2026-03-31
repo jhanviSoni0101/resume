@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #1a1a2e, #000);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        #scorebox {
+            color: #fff;
+            margin-top: 25px;
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px cyan, 0 0 20px #00f5ff;
+        }
+
+        .main {
+            width: 500px;
+            height: 500px;
+            margin-top: 30px;
+            position: relative;
+            border-radius: 20px;
+            background: #0f172a;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow:
+                0 0 20px rgba(0, 255, 255, .4),
+                inset 0 0 30px rgba(0, 0, 0, .9);
+        }
+
+        .main::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #00f5ff, #ff00ff, #00ff88, #00f5ff);
+            z-index: -1;
+            filter: blur(8px);
+        }
+
+        .snake>div {
+            position: absolute;
+            height: 25px;
+            width: 25px;
+            border-radius: 6px;
+            background: linear-gradient(145deg, #00ff88, #00ffaa);
+            box-shadow: 0 0 8px #00ffcc;
+        }
+        .apple {
+            position: absolute;
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff3c3c, #ff0000);
+            box-shadow: 0 0 15px red;
+        }
+
+        @media(max-width:600px) {
+
+            .main {
+                width: 90vw;
+                height: 90vw;
+            }
+
+            #scorebox {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="scorebox">Score:0</h2>
+    <div class="main">
+        <div class="snake">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="apple"></div>
+    </div>
+</body>
+<script>
+    let snakeBody = document.querySelector('.snake');
+    let applebody = document.querySelector('.apple');
+    let scorebox = document.getElementById('scorebox');
+    let snakeArr = [{ x: 10, y: 10 }, { x: 10, y: 11 }, { x: 10, y: 12 }];
+    let size = 25;
+    let blocks = 20;
+    let direction = undefined;
+    let speed = 300;
+    let appleX, appleY;
+    let score = 0;
+    function drawSnake() {
+        let bodyparts = document.querySelectorAll('.snake>div');
+        snakeArr.forEach(function (pos, i) {
+            bodyparts[i].style.left = `${pos.x * size}px`;
+            bodyparts[i].style.top = `${pos.y * size}px`;
+        });
+    }
+    function drawapple() {
+        appleX = Math.floor(Math.random() * blocks);
+        appleY = Math.floor(Math.random() * blocks);
+        applebody.style.left = appleX * size + 'px';
+        applebody.style.top = appleY * size + 'px';
+    }
+    drawSnake();
+    drawapple();
+    let snakeInterval = setInterval(() => {
+        if (direction) {   //move snake body
+            for (let i = snakeArr.length - 1; i > 0; i--) {
+                snakeArr[i].x = snakeArr[i - 1].x;
+                snakeArr[i].y = snakeArr[i - 1].y;
+            } //move Head
+            if (direction == 'up') snakeArr[0].y--;
+            else if (direction == 'down') snakeArr[0].y++;
+            else if (direction == 'left') snakeArr[0].x--;
+            else if (direction == 'right') snakeArr[0].x++;
+
+            if (snakeArr[0].x == appleX && snakeArr[0].y == appleY) {
+                snakeBody.innerHTML += "<div></div>";
+                let last = snakeArr[snakeArr.length - 1];
+                snakeArr.push({ x: last.x, y: last.y });
+                drawapple();
+                score++;
+                scorebox.innerText = "Score:" + score;
+            }
+            drawSnake();
+            //collision
+            if (snakeArr[0].x < 0 || snakeArr[0].x >= blocks || snakeArr[0].y < 0 || snakeArr[0].y >= blocks) {
+                alert("GAME OVER");
+                clearInterval(snakeInterval);
+            }
+        }
+    }, speed);
+
+    window.addEventListener('keydown', function (event) {
+        if (event.code == 'ArrowUp' && direction != 'down') direction = 'up';
+        else if (event.code == 'ArrowDown' && direction != 'up') direction = 'down';
+        else if (event.code == 'ArrowLeft' && direction != 'right') direction = 'left';
+        else if (event.code == 'ArrowRight' && direction != 'left') direction = 'right';
+
+    });
+</script>
+
+</html>
