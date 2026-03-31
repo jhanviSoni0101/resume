@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mountain {
+            background-image: url('mountain.jpg');
+            height: 100vh;
+            width: 100vw;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.1) translate(0, 0);
+        }
+
+        .ballon {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .ballon1 {
+            height: 300px;
+            width: 300px;
+            z-index: 4;
+        }
+
+        .ballon2 {
+            height: 100px;
+            width: 100px;
+            z-index: 3;
+        }
+
+        .ballon3 {
+            height: 80px;
+            width: 80px;
+            z-index: 2;
+        }
+
+        .ballon4 {
+            height: 50px;
+            width: 50px;
+            z-index: 1;
+        }
+
+        .ballon11 {
+            background-image: url('hotAir1.png');
+            top: 40%;
+            left: 80%;
+        }
+
+        .ballon12 {
+            background-image: url('hotAir2.png');
+            top: 50%;
+            left: 10%;
+        }
+
+        .ballon13 {
+            background-image: url('hotAir1.png');
+            top: -20%;
+            left: 0%;
+        }
+
+        .ballon21 {
+            background-image: url('hotAir2.png');
+            top: 50%;
+            left: 45%;
+        }
+
+        .ballon22 {
+            background-image: url('hotAir2.png');
+            top: 25%;
+            left: 60%;
+        }
+
+        .ballon23 {
+            background-image: url('hotAir1.png');
+            top: 12%;
+            left: 90%;
+        }
+
+        .ballon23 {
+            background-image: url('hotAir1.png');
+            top: 12%;
+            left: 90%;
+        }
+
+        .ballon24 {
+            background-image: url('hotAir2.png');
+            top: 12%;
+            left: 20%;
+        }
+
+        .ballon31 {
+            background-image: url('hotAir1.png');
+            top: 55%;
+            left: 0%;
+        }
+
+        .ballon32 {
+            background-image: url('hotAir2.png');
+            top: 58%;
+            left: 7%;
+        }
+
+        .ballon33 {
+            background-image: url('hotAir1.png');
+            top: 63%;
+            left: 61%;
+        }
+
+        .ballon34 {
+            background-image: url('hotAir2.png');
+            top: -8%;
+            left: 82%;
+        }
+
+        .ballon35 {
+            background-image: url('hotAir1.png');
+            top: 30%;
+            left: 40%;
+        }
+
+        .ballon41 {
+            background-image: url('hotAir1.png');
+            top: 40%;
+            left: 60%;
+        }
+
+        .ballon42 {
+            background-image: url('hotAir2.png');
+            top: 55%;
+            left: 63%;
+        }
+
+        .ballon43 {
+            background-image: url('hotAir1.png');
+            top: 57%;
+            left: 69%;
+        }
+
+        .ballon44 {
+            background-image: url('hotAir2.png');
+            top: 55%;
+            left: 73%;
+        }
+
+        .ballon45 {
+            background-image: url('hotAir1.png');
+            top: 29%;
+            left: 86%;
+        }
+
+        .ballon46 {
+            background-image: url('hotAir1.png');
+            top: 30%;
+            left: 30%;
+        }
+
+        .ballon47 {
+            background-image: url('hotAir2.png');
+            top: 20%;
+            left: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="mountain"></div>
+        <div class="ballon ballon1 ballon11"></div>
+        <div class="ballon ballon1 ballon12"></div>
+        <div class="ballon ballon1 ballon13"></div>
+
+        <div class="ballon ballon2 ballon21"></div>
+        <div class="ballon ballon2 ballon22"></div>
+        <div class="ballon ballon2 ballon23"></div>
+        <div class="ballon ballon2 ballon24"></div>
+
+        <div class="ballon ballon3 ballon31"></div>
+        <div class="ballon ballon3 ballon32"></div>
+        <div class="ballon ballon3 ballon33"></div>
+        <div class="ballon ballon3 ballon34"></div>
+        <div class="ballon ballon3 ballon35"></div>
+
+        <div class="ballon ballon4 ballon41"></div>
+        <div class="ballon ballon4 ballon42"></div>
+        <div class="ballon ballon4 ballon43"></div>
+        <div class="ballon ballon4 ballon44"></div>
+        <div class="ballon ballon4 ballon45"></div>
+        <div class="ballon ballon4 ballon46"></div>
+        <div class="ballon ballon4 ballon47"></div>
+    </div>
+</body>
+<script>
+    let mountain = document.querySelector('.mountain');
+    let ballon1 = document.querySelectorAll('.ballon1');
+    let ballon2 = document.querySelectorAll('.ballon2');
+    let ballon3 = document.querySelectorAll('.ballon3');
+    let ballon4 = document.querySelectorAll('.ballon4');
+    let x, y;
+    window.addEventListener('mousemove', function (e) {
+        x = e.clientX - window.innerWidth / 2;
+        y = e.clientY - window.innerHeight / 2;
+        //    console.log(x,y);
+
+        mountain.style.transform = `scale(1.1) translate(${x / 30}px,${y / 30}px)`;
+        ballon1.forEach((ballon) => { ballon.style.transform = ` translate(${x / 12}px,${y / 12}px)`; });
+        ballon2.forEach((ballon) => { ballon.style.transform = ` translate(${x / 25}px,${y / 25}px)`; });
+        ballon3.forEach((ballon) => { ballon.style.transform = ` translate(${x / 45}px,${y / 45}px)`; });
+        ballon4.forEach((ballon) => { ballon.style.transform = ` translate(${x / 75}px,${y / 75}px)`; });
+    });
+</script>
+
+</html>
