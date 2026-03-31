@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background: #C7D5FC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .calculator{
+            background-color: #8EDDBE;
+            width: 260px;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 20px;
+        }
+        .display{
+            height: 50px;
+            width: 100%;
+            background-color: white;
+            border: 1px solid black;
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 1.5rem;
+            overflow: hidden;
+        }
+        .row{
+            display: flex;
+            justify-content:space-between;
+            margin-bottom: 10px;
+        }
+        .btn{
+            width: 50px;
+            height: 45px;
+            border: 1px solid black;
+            background-color: #F5B95A;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        button{
+             width: 50px;
+            height: 45px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" class="display">
+        <div class="row">
+            <div class="btn " onclick="buttonclick('1')">1</div>
+            <div class="btn" onclick="buttonclick('2')">2</div>
+            <div class="btn" onclick="buttonclick('3')">3</div>
+            <button onclick="buttonclick('+')">+</button>
+        </div>
+        <div class="row">
+            <div class="btn " onclick="buttonclick('4')">4</div>
+            <div class="btn " onclick="buttonclick('5')">5</div>
+            <div class="btn " onclick="buttonclick('6')">6</div>
+            <button onclick="buttonclick('-')">-</button>
+        </div>
+        <div class="row">
+            <div class="btn " onclick="buttonclick('7')">7</div>
+            <div class="btn " onclick="buttonclick('8')">8</div>
+            <div class="btn " onclick="buttonclick('9')">9</div>
+            <button onclick="buttonclick('*')">*</button>
+        </div>
+       <div class="row">
+          <button>C</button>
+            <div class="btn white-btn" onclick="buttonclick('0')">0</div>
+            <div class="btn black-btn" onclick="calculate()">=</div>
+           <button onclick="buttonclick('/')">/</button>
+        </div>
+    </div>
+</body>
+<script>
+    let display=document.getElementById("display");
+    let eq="";
+    function buttonclick(key)
+    {
+     eq+=key;
+     console.log(eq);
+     display.value=eq;
+    }
+    function calculate()
+    {
+        let ans=display.value;
+        display.value=eval(ans);
+        }
+</script>
+</html>
