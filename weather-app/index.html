@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background: rgb(0, 0, 0);
+        }
+
+        .card {
+            width: 90%;
+            max-width: 470px;
+            background: linear-gradient(135deg, rgb(134, 102, 211), rgb(245, 215, 159));
+            margin: 10px auto 0;
+            border-radius: 20px;
+            padding: 40px 35px;
+            text-align: center;
+        }
+
+        .search {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search input {
+            border: 0;
+            outline: 0;
+            background: whitesmoke;
+            color: black;
+            padding: 10px 25px;
+            height: 60px;
+            border-radius: 30px;
+            flex: 1;
+            margin-right: 16px;
+            font-size: 18px;
+        }
+
+        .search button {
+            border: 0;
+            outline: 0;
+            background: whitesmoke;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+        }
+
+        .search button img {
+            width: 16px;
+        }
+
+        .weather {
+            display: none;
+        }
+
+        .weather-icon {
+            width: 170px;
+            margin-top: 30px;
+        }
+
+        .weather h1 {
+            font-size: 80px;
+            font-weight: 500;
+        }
+
+        .weather h2 {
+            font-size: 45px;
+            font-weight: 400;
+            margin-top: -10px;
+        }
+
+        .details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            margin-top: 50px;
+        }
+
+        .col {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .col img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .humidity,
+        .wind {
+            font-size: 28px;
+            margin-top: -6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter city name" spellcheck="false">
+            <button><img src="images/search.png"></button>
+        </div>
+
+        <div class="weather">
+            <img src="images/sun.png" class="weather-icon">
+            <h1 class="temp"></h1>
+            <h2 class="city"></h2>
+
+            <div class="details">
+                <div class="col">
+                    <img src="images/humidity.png">
+                    <div>
+                        <p class="humidity"></p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img src="images/wind.png">
+                    <div>
+                        <p class="wind"></p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        let  searchBtn = document.querySelector(".search button");
+        let  inputBox = document.querySelector(".search input");
+        let  weatherBox = document.querySelector(".weather");
+        let  temp = document.querySelector(".temp");
+        let  city = document.querySelector(".city");
+        let  humidity = document.querySelector(".humidity");
+        let  wind = document.querySelector(".wind");
+        let  icon = document.querySelector(".weather-icon");
+
+        function fetchWeather(cityName) {
+
+            fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`)
+                .then(response => response.json())
+                .then(data => {
+
+                    if (!data.results) {
+                        alert("City nih");
+                        return;
+                    }
+
+                    const lat = data.results[0].latitude;
+                    const lon = data.results[0].longitude;
+                    const realName = data.results[0].name;
+
+                    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=relativehumidity_2m`)
+                        .then(response => response.json())
+                        .then(weatherData => {
+
+                            temp.innerHTML = weatherData.current_weather.temperature + "°C";
+                            city.innerHTML = realName;
+                            wind.innerHTML = weatherData.current_weather.windspeed + " km/h";
+                            humidity.innerHTML = weatherData.hourly.relativehumidity_2m[0] + "%";
+
+                            const code = weatherData.current_weather.weathercode;
+
+                            if (code === 0) {
+                                icon.src = "images/clear.png";
+                            }
+                            else if (code >= 1 && code <= 3) {
+                                icon.src = "images/clouds.png";
+                            }
+                            else if (code >= 45 && code <= 48) {
+                                icon.src = "images/mist.png";
+                            }
+                            else if (code >= 51 && code <= 67) {
+                                icon.src = "images/rain.png";
+                            }
+                            else if (code >= 71 && code <= 77) {
+                                icon.src = "images/snow.png";
+                            }
+                            else {
+                                icon.src = "images/dizzle.png";
+                            }
+
+                            weatherBox.style.display = "block";
+
+                        });
+                })
+                .catch(error => {
+                    alert("Oops! City check karo ya net dekh lo 💛");
+                    console.log(error);
+                });
+
+        }
+
+        searchBtn.addEventListener("click", () => {
+            const cityName = inputBox.value.trim();
+            if (cityName !== "") {
+                fetchWeather(cityName);
+            }
+        });
+
+    
+
+    </script>
+
+</body>
+
+</html>
