@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(255, 230, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: cursive;
+            height: 100vh;
+        }
+
+        #welcome {
+            color: red;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        #counter {
+            /* display: flex; */
+            height: 100vh;
+            width: 90%;
+            max-width: 400px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 0, 0.329);
+            padding: 10px 20px;
+            display: none;
+        }
+
+        #radha {
+            margin: 0px 10px 10px 10px;
+            font-size: 70px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .circle {
+            width: 100px;
+            height:100px;
+            border-radius: 50%;
+            border: 1px solid red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        }
+
+        #count {
+            font-size: 50px;
+           font-weight: bold;
+           color: red;
+        }
+        #mala {
+            font-size: 25px;
+           font-weight: bold;
+           color: darkred;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            color: rgb(251, 0, 0);
+            background: rgba(255, 255, 0, 0.962);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="welcome" onclick="Welcome()"> नाम जप काउंटर</div>
+    <div id="counter">
+        <div id="radha">राधा</div>
+        <div class="circle">
+            <div id="count">0</div>
+        </div>
+         <div id="mala">माला: 0</div>
+        <button onclick="increment()">+</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+</body>
+<script>
+    let welcome = document.getElementById("welcome");
+    let counter = document.getElementById("counter");
+    let count = document.getElementById("count");
+    let mala = document.getElementById('mala');
+    let radhasound = new Audio("radha.mp3");
+    let c = 0;
+    let malacount = 0;
+    function Welcome() {
+        welcome.style.display = "none";
+        counter.style.display = "flex";
+    }
+    function increment() {
+        c++;
+        if(c>108){
+            c=1;
+            malacount++;
+        }
+        count.innerHTML = c;
+        mala.innerHTML = `माला:${malacount}`;
+        radhasound.play();
+    }
+    function reset() {
+        c = 0;
+        malacount=0;
+        count.innerHTML = c;
+         mala.innerHTML = `माला:${malacount}`;
+    }
+</script>
+
+</html>
