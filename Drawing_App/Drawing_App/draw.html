@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        #start {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: #ffffff;
+        }
+
+        #start>h1 {
+            font-size: 40px;
+            color: steelblue;
+            margin-bottom: 10px;
+        }
+
+        #start>p {
+            font-size: 16px;
+        }
+
+        #screen {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            margin-bottom: 10px;
+            color: steelblue;
+        }
+
+        canvas {
+            border: 2px solid steelblue;
+        }
+
+        .toolbox {
+            background-color: steelblue;
+            border: 2px solid steelblue;
+            display: flex;
+            width: 600px;
+        }
+
+        .toolbox>* {
+            background-color: #ffffff;
+            border: none;
+            height: 20px;
+            width: 20px;
+            margin: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toolbox>*:last-child {
+            margin-left: auto;
+        }
+
+        .made {
+            margin-top: 20px;
+            color: steelblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="start">
+        <h1>SoftStroke</h1>
+        <p>Tap to start drawing</p>
+    </div>
+    <div id="screen">
+        <h3 class="title">SoftStroke</h3>
+        <canvas id="canvas" width="600" height="300"></canvas>
+        <div class="toolbox">
+            <div id="decrease">-</div>
+            <span id="size">10</span>
+            <div id="increase">+</div>
+            <input type="color" id="color">
+            <div id="rect">▭</div>
+            <div id="circle">◯</div>
+            <div id="clear">X</div>
+        </div>
+        <p class="made">Designed with creativity by Jhanvi | Guided by Mayur Sirr</p>
+    </div>
+</body>
+<script>
+    let start = document.getElementById('start');
+    let screen = document.getElementById('screen');
+    let rect = document.getElementById('rect');
+    let circle = document.getElementById('circle');
+    let shape = 'brush';
+    start.addEventListener('click', function () {
+        start.style.display = 'none';
+        screen.style.display = 'flex';
+    });
+
+    let canvas = document.getElementById('canvas');
+    let increase = document.getElementById('increase');
+    let decrease = document.getElementById('decrease');
+    let sizeEl = document.getElementById('size');
+    let colorEl = document.getElementById('color');
+    let clearEl = document.getElementById('clear');
+    let ctx = canvas.getContext('2d');
+    let size = 10;
+    let color = colorEl.value;
+    let isPressed = false;
+    let x, y;
+
+    canvas.addEventListener('mousedown', (e) => {
+        isPressed = true;
+        x = e.offsetX;
+        y = e.offsetY;
+    });
+    canvas.addEventListener('mousemove', (e) => {
+        if (isPressed) {
+            let x2 = e.offsetX;
+            let y2 = e.offsetY;
+            drawCircle(x, y);
+            drawLine(x, y, x2, y2);
+            x = x2;
+            y = y2;
+        }
+    });
+    canvas.addEventListener('mouseup', (e) => {
+        isPressed = false;
+        x = undefined;
+        y = undefined;
+    })
+    function drawCircle(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+    function drawLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = size * 2;
+        ctx.stroke();
+    }
+    function UpdateSize() {
+        sizeEl.innerHTML = size;
+    }
+  
+    function drawMainCircle(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, 30, 0, Math.PI * 2);
+        ctx.strokeStyle = color;
+        ctx.stroke();
+    }
+    increase.addEventListener('click', () => {
+        size += 5;
+        if (size > 50) {
+            size = 50;
+        }
+        UpdateSize();
+    })
+    decrease.addEventListener('click', () => {
+        size -= 5;
+        if (size < 5) {
+            size = 5;
+        }
+        UpdateSize();
+    });
+   
+   
+
+    colorEl.addEventListener('click', (e) => color = e.target.value);
+    clearEl.addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height))
+</script>
+
+</html>

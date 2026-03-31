@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+            animation: dayNight 5s linear alternate infinite;
+        }
+
+        .mountains {
+            width: 100%;
+            position: absolute;
+            bottom: -200px;
+        }
+
+        .orbit {
+            height: 1000px;
+            width: 1000px;
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            transform: translateX(-50%) rotate(0deg);
+            animation: rotate 10s linear infinite;
+        }
+
+        .sun {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            background: radial-gradient(yellow, orange);
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .moon {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            background: radial-gradient(white, grey);
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, 50%);
+        }
+
+        .stars {
+            width: 100%;
+            height: 50%;
+            position: relative;
+            animation: Star 5s linear alternate infinite;
+        }
+
+        .star {
+            width: 20px;
+            position: absolute;
+
+        }
+
+        .star1 {
+            top: 50px;
+            left: 50px;
+        }
+
+        .star2 {
+            top: 80%;
+            left: 60%;
+        }
+
+        .star3 {
+            top: 40%;
+            left: 45%;
+        }
+
+        .star4 {
+            top: 30%;
+            left: 90%;
+        }
+
+        .star5 {
+            top: 20%;
+            left: 50%;
+        }
+        .star6 {
+            top: 80%;
+            left: 5%;
+        }
+        .star7 {
+            top: 10%;
+            left: 70%;
+        }
+        .star8 {
+            top: 70%;
+            left: 60%;
+        }
+        .star9 {
+            top: 50%;
+            left: 10%;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: translateX(-50%) rotate(0deg);
+            }
+
+            to {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        @keyframes dayNight {
+            from {
+                background-color: white;
+            }
+
+            to {
+                background-color: black;
+            }
+        }
+
+        @keyframes Star {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="orbit">
+            <div class="sun"></div>
+            <div class="moon"></div>
+        </div>
+        <div class="stars">
+            <img src="star.png" class="star star1" alt="">
+            <img src="star.png" class="star star2" alt="">
+            <img src="star.png" class="star star3" alt="">
+            <img src="star.png" class="star star4" alt="">
+            <img src="star.png" class="star star5" alt="">
+            <img src="star.png" class="star star6" alt="">
+            <img src="star.png" class="star star7" alt="">
+            <img src="star.png" class="star star8" alt="">
+             <img src="star.png" class="star star9" alt="">
+
+        </div>
+        <img src="moutain.png" class="mountains" alt="">
+    </div>
+</body>
+
+</html>
