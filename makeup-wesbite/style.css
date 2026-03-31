@@ -1,0 +1,194 @@
+body {
+  padding-top: 120px;
+}
+nav.navbar {
+    background-color:#eabfcd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-brand {
+    color: #f42d6f;
+}
+
+.logo {
+    width: 60px;
+    margin-right: 10px;
+}
+
+.navbar-toggler-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.navbar-toggler {
+    padding: 2px 6px;
+}
+
+.glow-link {
+    transition: 0.2s;
+}
+
+.glow-link:hover {
+    color: #ff4d88;
+}
+
+.glow-icon1 {
+    color: #222;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.glow-icon2 {
+    color: rgb(184, 36, 36);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.glow-icon3 {
+    color: #222;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.glow-icon:hover {
+    transform: scale(1.1);
+}
+
+.sub-nav {
+    background-color: #f378a1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+ top: -30px; /* navbar ke neeche shift karne ke liye */
+    z-index: 0;
+}
+.sub-nav .left {
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.sub-nav .right a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    margin: 0 5px;
+    transition: color 0.3s;
+}
+
+.sub-nav .right a:hover {
+    color: #ff4d88;
+}
+
+.sub-nav .right span {
+    color: white;
+}
+
+.container {
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.Image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+footer {
+    background-color: white;
+    margin-top: 50px;
+}
+
+.Logo {
+    width: 90px;
+}
+
+footer>.container>h3 {
+    color: #f42d6f;
+}
+
+.Productinfo {
+    position: relative;
+    overflow: hidden;
+}
+
+.Productinfo>.Buttons {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    transform: translateY(100%);
+    transition: all .5s;
+}
+
+.Productinfo>.Buttons>button {
+    border: none;
+    background-color: rgba(180, 35, 35, 0.296);
+    color: #484444;
+    width: 50%;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.Productinfo>.Buttons>button:hover {
+    background-color: rgba(180, 35, 35, 0.683);
+}
+
+.Productinfo:hover>.Buttons {
+    transform: translateY(0);
+}
+
+.go-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: #f42d6f;
+    padding: 10px;
+    color: white;
+}
+
+.recent-post p.title i:hover {
+    color: #ff4d88;
+    transition: .3s;
+}
+
+.recent-post p.date i:hover {
+    color: rgb(130, 130, 228);
+    transition: .3s;
+}
+
+.small-Img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+
+}
+
+.items {
+    color: #ff69b4 !important;
+    cursor: pointer;
+}
+
+.items:hover {
+    color: #ff1493 !important;
+
+    transition: 0.3s ease;
+}
+
+.btn1 {
+    background: linear-gradient(135deg, #ff4f8b, #ff7db5);
+    color: white;
+    border-radius: 30px;
+    font-size: 18px;
+
+}
+
+.TOPICON {
+    color: #f378a1;
+}

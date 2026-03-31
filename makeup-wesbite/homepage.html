@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        body {
+            background: #ebd1d3;
+ padding-top: 80px;
+        }
+
+        nav.navbar {
+            background-color: #E4D1D3;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .navbar-brand {
+            color: #f42d6f;
+        }
+    .logo{
+        width: 60px;
+        margin-right: 10px;
+    }
+        .navbar-toggler-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .navbar-toggler {
+            padding: 2px 6px;
+        }
+
+        .glow-link {
+            transition: 0.2s;
+        }
+
+        .glow-link:hover {
+            color: #ff4d88;
+        }
+
+        .glow-icon1 {
+            color: #222;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .glow-icon2 {
+            color: rgb(184, 36, 36);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .glow-icon3 {
+            color: #222;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .glow-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .image {
+            width: 85%;
+            max-width: 450px;
+        }
+
+        h1 {
+            color: #4e484a;
+        }
+
+        p {
+            color: #4e484a;
+
+        }
+
+        .btn1 {
+            background: linear-gradient(135deg, #ff4f8b, #ff7db5);
+            color: white;
+            border-radius: 30px;
+            border-top-right-radius: 0;
+            font-size: 18px;
+        }
+        .about-overlay1{
+           width: 200px;
+    right: 50%;   /* -20px se thoda right shift */
+    top: 10%;
+        }
+        .about-overlay2{
+              width: 170px;
+    right: 35%;   /* same shift */
+    top: 30%;
+        }
+        .about-overlay3{
+             width: 140px;
+    right:25%;   /* same shift */
+    top: 50%;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container d-flex align-items-center">
+           <img src="download.png" class="logo">
+            <a class="navbar-brand fw-bold fs-3">Glowin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
+                <ul class="navbar-nav gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold glow-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold glow-link" href="makeupshoppage.html">Shop</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link fw-semibold glow-link" href="#">Beauty Tips </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold glow-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex gap-4">
+                <i class="fa-solid fa-magnifying-glass fs-5 glow-icon glow-icon1"></i>
+                <i class="fa-regular fa-heart fs-5 glow-icon glow-icon2"></i>
+                <i class="fa-solid fa-bag-shopping fs-5 glow-icon glow-icon3"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="makeupgirl-removebg-preview.png" class="img-fluid image" alt="">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="fw-bold mt-5 fs-2">Glow Like Never Before</h1>
+                <p class="fs-5 mt-2 "> Be Bold. Be Soft. Be Beautiful – Be You.</p>
+                <button type="button" class="btn btn1 mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Start Glowing</button>
+
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">💅 Glowin’ Tips for You</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>✨ **Beauty is not makeup, it's confidence.**</p>
+
+        <p>🌸 Start with clean skin — gentle cleanser always.</p>
+        <p>💧 Hydrate! Drink water & use a good moisturizer.</p>
+        <p>🌞 Sunscreen everyday — glow + protection combo.</p>
+        <p>🍃 Less chemicals, more natural care.</p>
+        <p>😴 Sleep well — tired skin never glows.</p>
+        <p>😊 Smile more — real glow starts inside.</p>
+
+        <hr>
+
+        <p>💫 *Glow like you own the world.*</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<section class="py-4" style="background-color: #f9e4e6;"  >
+    <div class="container">
+        <div class="row align-items-center">
+            <div class=" col-12 col-lg-6">
+                <h2 class="fw-bold mb-3" style="color: #f42d6f;" >About Glowin🎀</h2>
+                <p style="color:#4e484a; font-size:17px;">Glowin isn’t just about makeup — it’s about embracing your natural charm.  
+          We believe that beauty begins the moment you decide to be yourself.  
+          From skincare essentials to artistic glam, Glowin helps you shine your way —  
+          confidently, softly, and beautifully. 💅✨</p>
+          <button class="btn btn1 btn2 mt-3"  data-bs-toggle="modal" data-bs-target="#knowMoreModal">Know more</button>
+            </div>
+            <div class="col-12 col-lg-6 position-relative mt-4 mt-lg-0 " style="height: 400px;" >
+
+                <img src="istock.jpg" alt="" class="position-absolute about-overlay1">
+                <img src="istock.jpg" alt="" class="position-absolute about-overlay2">
+                <img src="istock.jpg" alt="" class="position-absolute about-overlay3">
+            </div>
+        </div>
+    </div>
+</section>
+ <div class="modal fade" id="knowMoreModal" tabindex="-1" aria-labelledby="knowMoreModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="knowmoreModel">About Glowin</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Glowin is all about feeling beautiful and confident.</p>
+        <p>We have makeup and skincare products to help you shine naturally.</p>
+        <p>From daily care to special glam, Glowin helps you look your best.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</html>
