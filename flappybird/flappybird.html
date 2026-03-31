@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .bird {
+            height: 50px;
+            position: absolute;
+            top: 25vh;
+            left: 30vw;
+        }
+
+        body {
+            overflow: hidden;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .pipes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .pipes>div {
+            width: 100px;
+            height: 100vh;
+            right: 0px;
+            position: absolute;
+            bottom: 0;
+            transform: translateX(100%);
+        }
+
+        .pipe-top,
+        .pipe-bottom {
+            position: absolute;
+            width: 100%;
+            background-image: linear-gradient(90deg, green, rgb(104, 218, 104), green, rgb(0, 50, 0));
+        }
+
+        .pipe-top {
+            top: 0;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .pipe-bottom {
+            bottom: 0;
+            border-radius: 10px 10px 0px 0px;
+        }
+
+        .score {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="FlappyBird.png" class="bird" alt="">
+    <h1 class="score">0</h1>
+    <div class="pipes"></div>
+</body>
+<script>
+    let bird = document.querySelector('.bird');
+    let bird_prop = bird.getBoundingClientRect();//bird current position(tblrwh)
+    let gravity = 0.5;
+    let bird_dy = 0;//bird vertical speed
+    let gameStarted = false;
+    let gameOver = false;
+    let points = new Audio('points.mp3');
+    let game_over = new Audio('game-over.mp3');
+    let scoreElem = document.querySelector('.score');
+    let _Score = 0;
+    function apply_gravity() {
+        if (gameOver) return;
+        if (bird_prop.y > 0 && bird_prop.bottom < window.innerHeight) {
+            // console.log(bird_prop.y);
+            bird_dy += gravity;
+            bird.style.top = bird_prop.y + bird_dy + 'px';
+            bird_prop = bird.getBoundingClientRect();
+            checkCollision();
+            requestAnimationFrame(apply_gravity);
+
+        }
+    }
+    window.addEventListener('keydown', function (e) {
+        if (e.key == " ") {
+            bird_dy = -7;
+            if (!gameStarted) {
+                gameStarted = !gameStarted;
+                requestAnimationFrame(apply_gravity);
+                requestAnimationFrame(movePiller);
+            }
+        }
+    });
+    function endGame() {
+        gameOver = true;
+        game_over.play();
+        document.body.innerHTML +=
+            "<h1 style='position:fixed;top:40%;left:40%;color:white'>GAME OVER</h1>";
+    }
+    function checkCollision() {
+        let birdRect = bird.getBoundingClientRect();
+        if (birdRect.bottom >= window.innerHeight || birdRect.top <= 0) {
+            endGame();
+            return;
+        }
+        let allPipes = pipes.children;
+        for (pipe of allPipes) {
+            let topPipe = pipe.children[0];
+            let bottomPipe = pipe.children[1];
+            let topRect = topPipe.getBoundingClientRect();
+            let bottomRect = bottomPipe.getBoundingClientRect();
+
+            if
+                (
+                birdRect.right > topRect.left &&
+                birdRect.left < topRect.right &&
+                (birdRect.top < topRect.bottom ||
+                    birdRect.bottom > bottomRect.top)
+            ) {
+                endGame();
+                return;
+            }
+        }
+
+    }
+
+    let pipes = document.querySelector('.pipes');
+    let pillerMoveSpeed = 0; //create new pipe
+
+    function movePiller() {
+        if (gameOver) return;
+        if (pillerMoveSpeed % 150 == 0)//150 frames k bad new pipe generate hoga
+        {
+            let gap = 30; //space jisme bird pass krega
+            let minTop = 10;
+            let maxTop = 60;
+            let topHeight = Math.random() * (maxTop - minTop) + minTop;
+            let bottomHeight = 100 - topHeight - gap;
+            pipes.innerHTML +=
+                `<div data-x="${window.innerWidth}" data-passed="false">
+                <div class="pipe-top" style="height:${topHeight}vh"></div>
+                 <div class="pipe-bottom" style="height:${bottomHeight}vh"></div>
+                </div>`
+
+        }
+        let allPipes = pipes.children;
+        for (let i = 0; i < allPipes.length; i++) {
+            let pipe = allPipes[i];//list se phle pipe nikla
+            pipe.dataset.x -= 2;
+            pipe.style.left = pipe.dataset.x + 'px';
+            if (pipe.dataset.passed == "false" && pipe.dataset.x < bird_prop.left) {
+                _Score++;
+                scoreElem.innerText = "Score:" + _Score;
+                points.play();
+                pipe.dataset.passed = "true";
+            }
+            if (pipe.dataset.x < -200) {
+                pipe.remove();
+            }
+        }
+        pillerMoveSpeed++;
+        requestAnimationFrame(movePiller);
+    }
+
+</script>
+
+</html>
