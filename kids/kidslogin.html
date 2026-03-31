@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: cursive;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            background: url('loginpage.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.249);
+            padding: 50px 40px;
+            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .container>h1 {
+            font-size: 2.1rem;
+            color: rgb(255, 145, 0);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .container>.line {
+            font-size: 0.9rem;
+            color: rgb(92, 91, 91);
+            margin-bottom: 20px;
+        }
+
+        .container>h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2px;
+            color: orangered;
+        }
+
+        .container>.mline {
+            font-size: 0.95rem;
+            color: rgb(92, 91, 91);
+            margin-bottom: 25px;
+        }
+
+        .container>input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 1px solid rgb(209, 208, 208);
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .container>button {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 145, 0, 0.538);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all .3s;
+        }
+
+        .container button:hover {
+            background-color: rgb(255, 145, 0);
+        }
+
+        .error-msg {
+            color: red !important;
+            text-align: left !important;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                background-position: bottom center;
+                background-size: cover;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <form action="home.html" class="container" onsubmit="return login()">
+        <h1>FUN LEARN KIDS</h1>
+        <p class="line">Learning made fun for litter learners.</p>
+        <h3>Welcome Back</h3>
+        <p class="mline">Please login to continue learning activities.</p>
+        <input type="email" placeholder="Enter your email " id="email">
+        <p class="error-msg" id="erroremail">*please enter email</p>
+        <input type="password" placeholder="Enter your password" id="password">
+        <p class="error-msg" id="errorpass">*please enter password</p>
+        <button onclick="login()">Login</button>
+        <div class="bline">“Let’s start learning together!”</div>
+        </form>
+    </div>
+
+</body>
+<script>
+    let e = document.getElementById("email");
+    let p = document.getElementById("password");
+    let erroremail = document.getElementById('erroremail');
+    let errorpass = document.getElementById('errorpass');
+    function login() {
+    erroremail.style.display = "none";
+    errorpass.style.display = "none";
+
+    if (e.value.length == 0) {
+        erroremail.style.display = "block";
+        return false;
+    }
+    if (p.value.length == 0) {
+        errorpass.style.display = "block";
+        return false;
+    }
+}
+</script>
+
+</html>

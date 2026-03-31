@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui;
+        }
+
+        nav {
+            background-color: rgb(37, 9, 37);
+            color: white;
+            height: 50px;
+            font-size: 24px;
+            padding: 10px;
+        }
+
+        .game-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            height: 300px;
+            width: 300px;
+            margin: 50px auto 0px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            height: 100px;
+            width: 100px;
+            outline: 1px solid black;
+            text-align: center;
+            line-height: 100px;
+            font-size: 100px;
+            font-weight: bold;
+        }
+
+        .game-info {
+            padding: 0 34px;
+        }
+
+        .game-info h1 {
+            color: rgb(37, 9, 37);
+            margin-top: 30px;
+        }
+
+        ._status {
+            margin: 10px;
+            color: rgb(52, 20, 52);
+        }
+
+        button {
+            padding: 10px 25px;
+            color: white;
+            background-color: rgb(37, 9, 37);
+            border: none;
+            margin: 20px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        button:hover {
+            background-color: rgb(53, 14, 53);
+            color: rgb(255, 252, 252);
+
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .game-info {
+                text-align: center;
+                margin-top: 20px;
+
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .game-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                width: 210px;
+                height: 210px;
+            }
+
+            .box {
+                width: 70px;
+                height: 70px;
+                font-size: 45px;
+                line-height: 65px;
+
+            }
+
+            .game-info {
+                margin-top: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>MyTicTacToe.com</li>
+        </ul>
+    </nav>
+    <div class="game-container" id="gameContainer">
+        <div class="container">
+            <div class="box" id="box1" onclick="_click(this)"></div>
+            <div class="box" id="box2" onclick="_click(this)"></div>
+            <div class="box" id="box3" onclick="_click(this)"></div>
+            <div class="box" id="box4" onclick="_click(this)"></div>
+            <div class="box" id="box5" onclick="_click(this)"></div>
+            <div class="box" id="box6" onclick="_click(this)"></div>
+            <div class="box" id="box7" onclick="_click(this)"></div>
+            <div class="box" id="box8" onclick="_click(this)"></div>
+            <div class="box" id="box9" onclick="_click(this)"></div>
+        </div>
+        <div class="game-info">
+            <h1>Welcome to Tic Toe MyTicTacToe</h1>
+            <div>
+                <p class="_status" id="_status">Player X's turn </p>
+                <button id="reset" onclick=" restartgame()">Reset</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+    let turn = true;
+    let box1 = document.getElementById('box1');
+    let box2 = document.getElementById('box2');
+    let box3 = document.getElementById('box3');
+    let box4 = document.getElementById('box4');
+    let box5 = document.getElementById('box5');
+    let box6 = document.getElementById('box6');
+    let box7 = document.getElementById('box7');
+    let box8 = document.getElementById('box8');
+    let box9 = document.getElementById('box9');
+    let gameContainer = document.getElementById('gameContainer');
+    let b1;
+    let b2;
+    let b3;
+    let b4;
+    let b5;
+    let b6;
+    let b7;
+    let b8;
+    let b9;
+    function _click(element) {
+        if (element.innerHTML == "") {
+            if (turn) {
+                element.innerHTML = "X";
+                _status.innerHTML = "Player O's turn";
+                gameContainer.style.color = "rgb(81, 50, 81)";
+                turn = false;
+            } else {
+                element.innerHTML = "O";
+                _status.innerHTML = "Player X's turn";
+                gameContainer.style.color = " rgb(58, 26, 58)";
+                turn = true;
+            }
+        } else {
+            alert("Error");
+        }
+        _winner();
+    }
+    function _winner() {
+        b1 = box1.innerHTML;
+        b2 = box2.innerHTML;
+        b3 = box3.innerHTML;
+        b4 = box4.innerHTML;
+        b5 = box5.innerHTML;
+        b6 = box6.innerHTML;
+        b7 = box7.innerHTML;
+        b8 = box8.innerHTML;
+        b9 = box9.innerHTML;
+
+        if (
+            (b1 == b2 && b1 == b3 && b1 == 'X') ||
+            (b4 == b5 && b4 == b6 && b4 == 'X') ||
+            (b7 == b8 && b7 == b9 && b7 == 'X') ||
+            (b1 == b4 && b1 == b7 && b1 == 'X') ||
+            (b2 == b5 && b2 == b8 && b2 == 'X') ||
+            (b3 == b6 && b3 == b9 && b3 == 'X') ||
+            (b1 == b5 && b1 == b9 && b1 == 'X') ||
+            (b3 == b5 && b3 == b7 && b3 == 'X')
+        ) {
+            _status.innerHTML = "X is winner";
+            // gameContainer.style.display = "block";
+            // gameContainer.style.fontSize = "45px";
+            // gameContainer.style.textAlign = "center";
+        }
+        else if (
+            (b1 == b2 && b1 == b3 && b1 == 'O') ||
+            (b4 == b5 && b4 == b6 && b4 == 'O') ||
+            (b7 == b8 && b7 == b9 && b7 == 'O') ||
+            (b1 == b4 && b1 == b7 && b1 == 'O') ||
+            (b2 == b5 && b2 == b8 && b2 == 'O') ||
+            (b3 == b6 && b3 == b9 && b3 == 'O') ||
+            (b1 == b5 && b1 == b9 && b1 == 'O') ||
+            (b3 == b5 && b3 == b7 && b3 == 'O')
+        ) {
+          _status.innerHTML = "O is winner";
+            // gameContainer.style.display = 'block';
+            // gameContainer.style.fontSize = "45px";
+            // gameContainer.style.textAlign = "center";
+        }
+    }
+   function restartgame()
+   {
+    document.location.reload();
+   }
+
+</script>
+
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: cursive;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-top: 80px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgb(255, 145, 0);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .sec1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links>li {
+            margin-left: 30px;
+        }
+
+        .nav-links>li>a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: all .3s;
+        }
+
+        .nav-links>li>a:hover {
+            color: yellow;
+        }
+
+        .icon {
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 20px 0px;
+            display: none;
+        }
+
+        .main {
+            height: calc(100vh - 80px);
+            width: 100%;
+            position: relative;
+            /* top: 0;
+            left: 50%;
+            transform: translateX(-50%); */
+            overflow: hidden;
+        }
+
+        .main>.image {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            object-fit: cover;
+        }
+
+        .main>.btns {
+            position: absolute;
+            width: 80%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            height: 50px;
+            width: 50px;
+            border: none;
+            border-top-left-radius: 90%;
+            border-bottom-right-radius: 50%;
+            background: rgba(0, 0, 0, 0.189);
+            color: white;
+            cursor: pointer;
+            transition: all .3s;
+        }
+
+        .btn:hover {
+            background: rgba(0, 0, 0, 0.569);
+        }
+
+        .image1 {
+            left: 0;
+        }
+
+        .image2 {
+            left: 100%
+        }
+
+        .image3 {
+            left: 200%;
+        }
+
+        .cards-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 40px 60px;
+            gap: 30px;
+            background: #fff7e6;
+        }
+
+        .card {
+            width: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            padding: 20px;
+            transition: all .5s;
+        }
+
+        .card:hover {
+            transform: translateY(8px) scale(1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card>img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .card>h3 {
+            margin: 15px 0 8px;
+            color: orange;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        .game-section,
+        .video-section {
+            background: #f1dec0;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .game-section>h2,
+        .video-section>h2 {
+            color: #ff6f00;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .game-container,
+        .video-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .video-section {
+            background: #e7c4a6;
+        }
+
+        .footer {
+            background: rgb(255, 145, 0);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer>h3 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 10px 0px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            transition: .3s;
+        }
+
+        .footer-links a:hover {
+            color: yellow;
+        }
+
+        .footer-bottom {
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+
+            .sec1 {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .sec2 {
+                display: none;
+                width: 100%;
+            }
+
+            .icon {
+                display: block;
+            }
+
+            .nav-links>li {
+                display: block;
+                background: rgb(255, 170, 60);
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .btn {
+                height: 40px;
+                width: 40px;
+                font-size: 1rem;
+            }
+
+            .main {
+                height: 60vh;
+            }
+
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="sec1">
+            <div class="logo">FUN LEARN KIDS</div>
+            <i class="icon fa-solid fa-bars" onclick="show()"></i>
+        </div>
+        <div class="sec2" id="menus">
+            <ul class="nav-links">
+                <li><a href="#">Home</a> </li>
+                <li><a href="#learn">Learn</a> </li>
+                <li><a href="#games">Games</a> </li>
+                <li><a href="#video">Videos</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <img src="image1.avif" class="image image1">
+        <img src="image2.avif" class="image image2">
+        <img src="image3.jpg" class="image image3">
+        <div class="btns">
+            <button class="btn btn-left"><i class="fa-solid fa-angle-left"></i></button>
+            <button class="btn btn-right"><i class="fa-solid fa-angle-right"></i></button>
+        </div>
+    </div>
+    <div class="cards-container" id="learn">
+        <a href="abc.html" class="link">
+            <div class="card">
+                <img src="abc.png" alt="">
+                <h3>Learn Letters</h3>
+            </div>
+        </a>
+        <a href="colors.html" class="link">
+            <div class="card">
+                <img src="colros.jpg" alt="">
+                <h3>Colors</h3>
+            </div>
+        </a>
+    </div>
+    <div class="game-section" id="games">
+        <h2>GAMES</h2>
+        <div class="game-container">
+            <a href="alphabetgame.html" class="link">
+                <div class="card">
+                    <img src="alphaorder.jpg" alt="">
+                    <h3>Alphabet jump</h3>
+                </div>
+            </a>
+            <a href="game.html" class="link">
+                <div class="card">
+                    <img src="clicker.png" alt="">
+                    <h3>Click the box</h3>
+                </div>
+            </a>
+            <a href="tic-tac-toe2.html" class="link">
+                <div class="card">
+                    <img src="tic.jpg" alt="">
+                    <h3>Tic-Tac-Toe</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="video-section" id="video">
+        <h2>Videos</h2>
+        <div class="video-container">
+            <a href="https://youtu.be/tWe93wO0VmE?si=n5FkErkWZDMbhQaB" target="_blank" class="link">
+                <div class="card">
+                    <img src="clap.jpg" alt="">
+                    <h3>Story</h3>
+                </div>
+            </a>
+            <a href="https://youtu.be/VdzzE20zQC8?si=jlWDoolx8GqCa95k" target="_blank" class="link">
+                <div class="card">
+                    <img src="shapes.jfif" alt="">
+                    <h3>Shapes</h3>
+                </div>
+            </a>
+            <a href="https://youtu.be/efiWeJbdbxk?si=XrCzGVFW88qyl46e" target="_blank" class="link">
+                <div class="card">
+                    <img src="animals.png" alt="">
+                    <h3>Animals</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="footer">
+        <h3>Fun Learn Kids</h3>
+        <p>Learning made fun for kids.</p>
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">Learn</a>
+            <a href="#">Games</a>
+            <a href="#">Videos</a>
+        </div>
+        <div class="footer-bottom">© 2025 Fun Learn Kids | Made with ❤️ for kids</div>
+    </div>
+</body>
+<script>
+    let menus = document.getElementById("menus");
+    let images = document.querySelectorAll(".image");
+    let btnL = document.querySelector(".btn-left");
+    let btnR = document.querySelector(".btn-right");
+
+    let IsmenuHidden = true;
+    function show() {
+        if (IsmenuHidden) {
+            menus.style.display = "block";
+            IsmenuHidden = false;
+        }
+        else {
+            menus.style.display = "none";
+            IsmenuHidden = true;
+        }
+    }
+
+    //imageslider
+    let position = 0;
+    btnL.addEventListener('click', function () {
+        position++;
+        if (position > 0) position = -2;
+        images.forEach(function (image, index) {
+            image.style.left = `${(index + position) * 100}%`;
+        });
+    });
+    btnR.addEventListener('click', function () {
+        position--;
+        if (position < -2) position = 0;
+        images.forEach(function (image, index) {
+            image.style.left = `${(index + position) * 100}%`;
+        });
+    });
+</script>
+
+</html>

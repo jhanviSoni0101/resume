@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: cursive;
+            box-sizing: border-box;
+        }
+
+        body {
+            text-align: center;
+            background: #f0cab5;
+        }
+
+        h2 {
+            color: #ff6f00;
+            font-size: 40px;
+            margin-top: 30px;
+        }
+
+        .container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #letter-btn {
+            font-size: 30px;
+            padding: 30px 50px;
+            margin-top: 50px;
+            border-radius: 20px;
+            border: 2px solid #ffab40;
+            cursor: pointer;
+            background: white;
+            transition: .3s;
+        }
+
+        #letter-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .goback {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 20px;
+            background: #ff7043;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .goback:hover {
+            background: #ff5722;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Click the letters in Order!</h2>
+    <div class="container">
+        <button id="letter-btn">A</button>
+        <a href="home.html" class="goback">Go-Back</a>
+    </div>
+</body>
+<script>
+    let letter = 65;
+    let btn = document.getElementById('letter-btn');
+    btn.addEventListener('click', function () {
+        letter++;
+        if (letter > 90) {
+            alert("You did it!");
+            letter = 65;
+
+        }
+        btn.innerHTML = String.fromCharCode(letter);
+    });
+</script>
+
+</html>
