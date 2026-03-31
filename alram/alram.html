@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: system-ui;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+            flex-direction: column;
+        }
+        h2{
+            font-size: 34px;
+            color: gray;
+        }
+        .container{
+            background-color: grey;
+            padding: 20px;
+            border-radius: 30px;
+        }
+        input{
+          padding: 10px 20px;
+          font-size: 20px;
+          border: 2px solid rgb(81, 72, 72);
+          border-radius: 10px;
+          margin: 10px;
+        }
+        button{
+         padding: 5px 10px;
+          font-size: 15px;
+          border: 1px solid rgb(81, 72, 72);
+          border-radius: 20px;
+          /* margin: 10px; */
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Alarm clock</h2>
+    <div class="container">
+          <input type="time" id="t">
+    <button onclick="start()">Set Alarm</button>
+    <button onclick="Stop()">Stop</button>
+    </div>
+  
+</body>
+<script>
+    let t = document.getElementById("t");
+    let a = new Audio("alrm.mp3");
+    function start() {
+        setInterval(function () {
+            let d = new Date();
+            let h = d.getHours();
+            let m = d.getMinutes();
+        
+            let tm = h + ":" + m;
+            if (tm == t.value) {
+                a.play();
+            }
+            console.log(tm);
+            console.log(t.value);
+        },1000);
+    }
+    function Stop()
+    {
+        a.pause();
+    }
+</script>
+
+</html>
