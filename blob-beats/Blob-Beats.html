@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blob Beats</title>
+    <style>
+        body {
+            margin: 0;
+            text-align: center;
+            font-family: Arial;
+            background: url('BB-background.png') no-repeat;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 100vh;
+        }
+
+        h1 {
+            margin-top: 10px;
+        }
+
+        #gameArea {
+            width: 400px;
+            height: 480px;
+            margin: auto;
+            position: relative;
+        }
+
+        .note {
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle, #ffd700, #a020f0);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+            box-shadow: 0 0 8px #ffd700, 0 0 15px #a020f0;
+        }
+
+        .keys {
+            margin-top: 20px;
+        }
+
+        .key {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🎵 Blob Beats 🎵</h1>
+    <p>Score: <span id="score">0</span> | Miss: <span id="miss">0</span></p>
+
+    <div id="gameArea"></div>
+
+    <div class="keys">
+        <div class="key">M</div>
+        <div class="key">J</div>
+        <div class="key">K</div>
+        <div class="key">T</div>
+    </div>
+
+</body>
+<script>
+    let gameArea = document.getElementById("gameArea");
+    let scoreText = document.getElementById("score");
+    let missText = document.getElementById("miss");
+    let laneX = [50, 150, 250, 350];
+    let score = 0;
+    let miss = 0;
+    let gameOver = false;
+    let bgMusic = new Audio("bg.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.4;
+
+    document.addEventListener("click", () => {
+        bgMusic.play();
+    });
+    function createnote() {
+        if (gameOver) return;
+        let note = document.createElement("div");
+        note.className = "note";
+        note.hit = false;
+        let random = Math.floor(Math.random() * 4);
+        note.lane = random;
+        note.style.left = laneX[random] + "px";
+        gameArea.appendChild(note);
+        let top = 0;
+        let move = setInterval(() => {
+            if (gameOver) {
+                clearInterval(move);
+                note.remove();
+                return;
+            }
+            top += 5;
+            note.style.top = top + "px";
+            if (top > 400) {
+                if (!note.hit) {
+                    miss++;
+                    missText.innerText = miss;
+                }
+                if (miss >= 5) {
+                    gameOver = true;
+                    clearInterval(gameInterval); 
+                    bgMusic.pause(); 
+                    alert("Game Over! Score: " + score);
+                }
+                note.remove();
+                clearInterval(move);
+            }
+        }, 50);
+    }
+    document.addEventListener("keydown", (e) => {
+        if (gameOver) return;
+        let lane = -1;
+        if (e.key === "m") lane = 0;
+        else if (e.key === "j") lane = 1;
+        else if (e.key === "k") lane = 2;
+        else if (e.key === "t") lane = 3;
+        if (lane !== -1) {
+            let notes = document.querySelectorAll(".note");
+            for (let note of notes) {
+                if (note.lane === lane) {
+                    note.hit = true;
+                    note.remove();
+                    score++;
+                    scoreText.innerText = score;
+                    break;
+                }
+            }
+        }
+    });
+    let gameInterval = setInterval(createnote, 800);
+</script>
+
+</html>

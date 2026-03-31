@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: Arial;
+            background: url('BB-background.png') no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .box {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 18px;
+            cursor: pointer;
+            background: gold;
+            border: none;
+            border-radius: 10px;
+        }
+
+        #Instructionscreen {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="Strtscreen">
+        <h1>🎵 Blob Beats 🎵</h1>
+        <button onclick="showInstructions()">Start</button>
+    </div>
+    <div class="box" id="Instructionscreen">
+        <h1>📜 Instructions</h1>
+        <p>Press keys: M, J, K, T</p>
+        <p>Catch the falling notes 🎵</p>
+        <p>Miss 5 notes = Game Over 💀</p>
+        <button onclick="startGame()">Start Game</button>
+    </div>
+</body>
+<script>
+    let startScreen = document.getElementById('Strtscreen');
+    let Instructionscreen = document.getElementById('Instructionscreen');
+    let music = new Audio("bg.mp3");
+    music.loop = true;
+    function showInstructions() {
+        music.play();
+        startScreen.style.display = 'none';
+        Instructionscreen.style.display = 'block';
+    }
+    function startGame() {
+        window.location.href = 'Blob-Beats.html';
+    }
+</script>
+
+</html>
