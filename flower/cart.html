@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<style>
+    body {
+        margin: 0;
+        background: #FFE49F;
+    }
+
+    .top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        position: relative;
+    }
+
+    .logo {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #631859;
+        text-decoration: none;
+    }
+
+    .icons {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        gap: 15px;
+        font-size: 20px;
+    }
+
+    .icons i {
+        color: #631859;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .icons i:hover {
+        transform: scale(1.2);
+    }
+
+    .icons a {
+        position: relative;
+    }
+
+    hr {
+        width: 50%;
+        margin: auto;
+        border: 0.5px solid #8f5d87;
+    }
+
+    nav {
+        text-align: center;
+        padding: 15px;
+    }
+
+    nav a {
+        text-decoration: none;
+        margin: 0 20px;
+        color: #732f6a;
+    }
+
+    nav a:hover {
+        color: #631859;
+    }
+
+    .cart-container {
+        width: 80%;
+        margin: 30px auto;
+    }
+
+    table {
+        width: 100%;
+        background: white;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+        font-size: 15px;
+    }
+
+    .total-row {
+        background: #f1ce77;
+        font-weight: bold;
+        font-size: 18px;
+        color: #631859;
+    }
+
+    .total-row td {
+        border-top: 2px solid #631859;
+    }
+
+    tr:hover {
+        background: #f9e0a1;
+        transform: scale(1.01);
+    }
+
+    button {
+        padding: 6px 12px;
+        border: none;
+        background: #631859;
+        color: white;
+        font-weight: bold;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #8f2c7d;
+        transform: scale(1.1);
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background: #631859;
+        color: white;
+        border-radius: 50%;
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+</style>
+
+<body>
+
+    <div class="top">
+
+        <a href="flone.html" class="logo">Flone.</a>
+
+        <div class="icons">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-heart"></i>
+            <a href="cart.html">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <nav>
+        <a href="flone.html">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">Collection</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <div class="cart-container">
+        <h2 style="text-align:center;color:#631859;">Your Shopping Cart 🛒</h2>
+        <table id="cartBox"></table>
+    </div>
+
+    <script>
+
+        let storageKey = "Flonelikes";
+
+        let Products = [
+            { id: 1, name: "Luxury Roses", price: 11, img: "img2.webp" },
+            { id: 2, name: "Luxury Roses", price: 11, img: "img1.webp" },
+            { id: 3, name: "Luxury Roses", price: 11, img: "img3.webp" },
+            { id: 4, name: "Luxury Roses", price: 11, img: "img4.jfif" },
+            { id: 5, name: "Luxury Roses", price: 11, img: "img5.jpg" },
+            { id: 6, name: "Luxury Roses", price: 11, img: "img2.webp" }
+        ];
+
+        $(document).ready(function () {
+
+            function loadData() {
+
+                $("#cartBox").empty();
+
+                let allProducts = localStorage.getItem(storageKey);
+
+                if (allProducts != null) {
+
+                    let arr = JSON.parse(allProducts);
+                    let total = 0;
+
+                    arr.forEach(product => {
+
+                        let data = Products.find(p => p.id == product.pid);
+                        let qty = product.qty;
+
+                        let row = $(`
+                        <tr>
+                            <td><img src="${data.img}" height="100"></td>
+                            <td>${data.name}</td>
+                            <td>${data.price}</td>
+                            <td class="qty"></td>
+                            <td>${(data.price * qty).toFixed(2)}</td>
+                        </tr>
+                        `);
+
+                        let plus = $("<button>+</button>");
+                        let minus = $("<button>-</button>");
+
+                        plus.click(() => changeQty('+', data.id));
+                        minus.click(() => changeQty('-', data.id));
+
+                        row.find(".qty").append(minus);
+                        row.find(".qty").append(` ${qty} `);
+                        row.find(".qty").append(plus);
+
+                        $("#cartBox").append(row);
+
+                        total += data.price * qty;
+
+                    });
+
+                    $("#cartBox").append(`
+                        <tr class="total-row">
+                            <td colspan="4">Grand Total</td>
+                            <td>₹ ${total.toFixed(2)}</td>
+                        </tr>
+                    `);
+
+                }
+
+            }
+
+            loadData();
+            updateCartNumber();
+
+            function updateCartNumber() {
+
+                let allProducts = localStorage.getItem(storageKey);
+
+                $(".cart-count").remove();
+
+                if (allProducts != null) {
+
+                    let arr = JSON.parse(allProducts);
+
+                    let count = $(`<span class="cart-count">${arr.length}</span>`);
+
+                    $(".fa-cart-shopping").append(count);
+                }
+            }
+
+            function changeQty(sign, id) {
+
+                let arr = JSON.parse(localStorage.getItem(storageKey));
+
+                arr.forEach((p, i) => {
+
+                    if (p.pid == id) {
+
+                        if (sign == '+')
+                            arr[i].qty = p.qty + 1;
+                        else
+                            arr[i].qty = p.qty - 1;
+
+                    }
+                });
+
+                arr = arr.filter(p => p.qty != 0);
+
+                localStorage.setItem(storageKey, JSON.stringify(arr));
+
+                loadData();
+                updateCartNumber();
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .bg {
+        background-image: url('back.avif');
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: #631859;
+    }
+
+    .top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        position: relative;
+    }
+
+    .logo {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    .icons {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        gap: 15px;
+        font-size: 20px;
+    }
+
+    .icons>i {
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .icons>i:hover {
+        color: #631859;
+        transform: scale(1.2);
+    }
+
+    hr {
+        width: 50%;
+        margin: auto;
+        border: 0.5px solid #8f5d87;
+    }
+
+    nav {
+        text-align: center;
+        padding: 15px;
+    }
+
+    nav>a {
+        text-decoration: none;
+        margin: 0 20px;
+        color: #732f6a;
+    }
+
+    nav>a:hover {
+        color: #631859;
+    }
+
+    .text {
+        text-align: center;
+        margin-top: 150px;
+    }
+
+    .text>h1 {
+        font-size: 55px;
+    }
+
+    .text>p {
+        font-size: 16px;
+        /* margin-top: 10px; */
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 32px;
+        margin: 60px 0 20px;
+        color: #631859;
+        letter-spacing: 1px;
+    }
+
+    .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #f6dc9c;
+        gap: 30px;
+        justify-content: center;
+        padding: 40px;
+    }
+
+    .card {
+        width: 270px;
+        background: white;
+        border-radius: 18px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        transition: .3s;
+    }
+
+    .img-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+    }
+
+    .img-box img {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        transition: .5s;
+    }
+
+    .heart {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: white;
+        padding: 10px;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+
+    .Details {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.55);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 200;
+        opacity: 0;
+        transition: .4s;
+        pointer-events: none;
+    }
+
+    .card:hover .Details {
+        opacity: 1;
+    }
+
+    .card h3 {
+        margin-top: 10px;
+        color: #631859;
+    }
+
+    .card p {
+        font-weight: bold;
+        color: #8f5d87;
+    }
+
+    .card:hover img {
+        transform: translateY(-10px);
+    }
+
+    .large {
+        transform: scale(1.8);
+        z-index: 100;
+        position: relative;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        border: none;
+        border-radius: 30px;
+        background: #631859;
+        color: white;
+    }
+
+    .btn:hover {
+        background: #8f5d87;
+    }
+
+    .liked {
+        color: red;
+        transform: scale(1.1);
+    }
+
+    .footerText {
+        text-align: center;
+        padding: 30px 15px;
+        background: linear-gradient(135deg, #ffe49f, #fff0f5);
+        color: #631859;
+        font-family: 'Dancing Script', cursive;
+        font-size: 17px;
+        font-weight: 500;
+        border-radius: 25px 25px 0 0;
+        border-radius: 25px 25px 0 0;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.15);
+        position: relative;
+    }
+
+    .footerText>.footerSocial {
+        margin: 15px 0px;
+
+    }
+
+    .footerText>.footerSocial>a {
+        color: #631859;
+        margin: 0 10px;
+        font-size: 22px;
+        transition: .3s;
+    }
+
+    .footerText>.footerSocial>a :hover {
+        color: #86567f;
+        transform: scale(1.3);
+    }
+
+    .footerText p {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #8f5d87;
+    }
+</style>
+
+<body>
+    <div class="bg">
+        <div class="top">
+            <div class="logo">Flone.</div>
+            <div class="icons">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-regular fa-heart"></i>
+                <a href="cart.html">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </div>
+        </div>
+        <hr>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">Collection</a>
+            <a href="#">Contact</a>
+        </nav>
+        <div class="text">
+            <h1>Flone Flowers</h1>
+            <p>Fresh Flowers,pure happiness</p>
+        </div>
+    </div>
+    <h2>Trending Flowers</h2>
+    <div class="image-container">
+        <!-- <div class="card">
+            <div class="img-box">
+                <img src="img2.webp">
+                <i class="fa-regular fa-heart heart"></i>
+                <div class="Details">View Details</div>
+            </div>
+            <h3>Luxury Roses</h3>
+            <p>Rs.11</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="img-box">
+                <img src="img5.jpg">
+                <i class="fa-regular fa-heart heart"></i>
+                <div class="Details">View Details</div>
+            </div>
+            <h3>Luxury Roses</h3>
+            <p>Rs.11</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="img-box">
+                <img src="img4.jfif">
+                <i class="fa-regular fa-heart heart"></i>
+                <div class="Details">View Details</div>
+            </div>
+            <h3>Luxury Roses</h3>
+            <p>Rs.11</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="img-box">
+                <img src="img1.webp">
+                <i class="fa-regular fa-heart heart"></i>
+                <div class="Details">View Details</div>
+            </div>
+            <h3>Luxury Roses</h3>
+            <p>Rs.11</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="img-box">
+                <img src="img2.webp">
+                <i class="fa-regular fa-heart heart"></i>
+                <div class="Details">View Details</div>
+            </div>
+            <h3>Luxury Roses</h3>
+            <p>Rs.11</p>
+            <button class="btn">Add to Cart</button>
+        </div>
+        <div class="card">
+            <div class="img-box">
+                <img src="img3.webp">
+                <i class="fa-regular fa-heart heart"></i>
+                <div class="Details">View Details</div>
+            </div>
+            <h3>Luxury Roses</h3>
+            <p>Rs.11</p>
+            <button class="btn">Add to Cart</button>
+        </div> -->
+    </div>
+    <footer class="footerText">
+        🌸 From Our Heart to Yours – Flowers That Speak the Language of Love 💜💛
+        <div class="footerSocial">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2026 Flone Flowers. All Rights Reserved.</p>
+    </footer>
+</body>
+<script>
+    let Products = [
+        { id: 1, name: "Luxury Roses", price: 11, img: "img2.webp" },
+        { id: 2, name: "Luxury Roses", price: 11, img: "img1.webp" },
+        { id: 3, name: "Luxury Roses", price: 11, img: "img3.webp" },
+        { id: 4, name: "Luxury Roses", price: 11, img: "img4.jfif" },
+        { id: 5, name: "Luxury Roses", price: 11, img: "img5.jpg" },
+        { id: 6, name: "Luxury Roses", price: 11, img: "img2.webp" }
+    ];
+    let storageKey = "Flonelikes";
+    let flonefav="FloneHeart";
+    $(document).ready(function () {
+        $(".top,hr,nav,.text").hide()
+            .fadeIn(2000);
+        $("nav>a").hover(function () {
+            $(this).css("border-bottom", "2px solid #631859")
+        },
+            function () {
+                $(this).css("border-bottom", "none");
+            }
+        );
+        Products.forEach(function (p) {
+            let card = `
+            <div class="card" data-id="${p.id}">
+                <div class="img-box">
+                    <img src="${p.img}">
+                    <i class="fa-regular fa-heart heart"></i>
+                    <div class="Details">View Details</div>
+                </div>
+                <h3>${p.name}</h3>
+                <p>Rs.${p.price}</p>
+                <button class="btn addcart">Add to cart</button>
+                </div>
+            `;
+            $('.image-container').append(card);
+        });
+        $(document).on("click", ".img-box img", function () {
+            $(this).toggleClass("large");
+        });
+        $(document).on("click", ".addcart", function () {
+            let id = $(this).closest(".card").data("id");
+            addtoCart(id);
+        });
+
+    });
+    function addtoCart(productId) {
+        let allProducts = localStorage.getItem(storageKey);
+        let productInfo = { pid: productId, qty: 1 };
+        if (!isProductInCart(productId)) {
+            if (allProducts) {
+                let allProductsArr = JSON.parse(allProducts);
+                allProductsArr.push(productInfo);
+                localStorage.setItem(storageKey, JSON.stringify(allProductsArr));
+            } else {
+                localStorage.setItem(storageKey, JSON.stringify([productInfo]));
+            }
+            alert("Your item is added 💜🛒");
+        } else {
+            alert("You’ve already selected this item 💛");
+        }
+        updateCartNumber();
+    }
+    function isProductInCart(productId) {
+        let allProducts = localStorage.getItem(storageKey);
+        let allProductsArr = JSON.parse(allProducts);
+        let inCart = false;
+        if (allProducts != null) {
+            allProductsArr.forEach(function (product) {
+                if (product.pid === productId) {
+                    inCart = true;
+                    return;
+                }
+            });
+            return inCart;
+        }
+    }
+    function updateCartNumber() {
+        let allProducts = localStorage.getItem(storageKey);
+        let allProductsArr = JSON.parse(allProducts);
+        $(".cart-count").remove();
+        if (allProducts != null) {
+            let counts = $(`<span class="cart-count"
+            style="position:absolute;top:-8px;right:-8px;
+            background:#8f5d87;color:white;border-radius:50%;
+            padding:4px 8px;font-size:10px;">
+            ${allProductsArr.length}
+        </span>`);
+            $(".fa-cart-shopping").css("position", "relative").append(counts);
+        }
+    }
+    $()
+</script>
+
+</html>
