@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: black;
+        }
+
+        .container {
+            height: 400px;
+            width: 400px;
+            margin: 80px auto;
+            position: relative;
+        }
+
+        .clock {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            outline: 10px solid rgb(37, 36, 36);
+            background-color: black;
+            border-radius: 50%;
+        }
+
+        .second,
+        .minute,
+        .hour {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .second>div {
+            height: 42%;
+            width: 5px;
+            background-color: white;
+            box-shadow: 0px 0px 10px 5px white;
+            border-radius: 12px 12px 0 0;
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .minute>div {
+            height: 40%;
+            width: 8px;
+            background-color: rgb(62, 61, 60);
+            border-radius: 12px 12px 0 0;
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hour>div {
+            height: 30%;
+            width: 12px;
+            background-color: white;
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .dot {
+            height: 20px;
+            width: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 200;
+        }
+
+        .num {
+            height: 50px;
+            width: 50px;
+            /* outline: 1px solid black; */
+            position: absolute;
+            /* top: 0%;
+            left: 50%; */
+            /* transform: translateX(-50%); */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .num>div {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .num_12 {
+            top: 0%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .num_1 {
+            top: 7%;
+            right: 17%;
+        }
+
+        .num_2 {
+            top: 23%;
+            right: 5%;
+        }
+
+        .num_3 {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .num_4 {
+            bottom: 23%;
+            right: 5%;
+        }
+
+        .num_5 {
+            bottom: 7%;
+            right: 17%;
+        }
+
+        .num_6 {
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .num_7 {
+            bottom: 7%;
+            left: 17%;
+        }
+
+        .num_8 {
+            bottom: 23%;
+            left: 5%;
+        }
+
+        .num_9 {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .num_10 {
+            top: 23%;
+            left: 5%;
+        }
+
+        .num_11 {
+            top: 7%;
+            left: 17%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="clock">
+            <div class=" num num_12">
+                <div>12</div>
+            </div>
+            <div class=" num num_1">
+                <div>1</div>
+            </div>
+            <div class=" num num_2">
+                <div>2</div>
+            </div>
+            <div class=" num num_3">
+                <div>3</div>
+            </div>
+            <div class=" num num_4">
+                <div>4</div>
+            </div>
+            <div class=" num num_5">
+                <div>5</div>
+            </div>
+            <div class=" num num_6">
+                <div>6</div>
+            </div>
+            <div class=" num num_7">
+                <div>7</div>
+            </div>
+            <div class=" num num_8">
+                <div>8</div>
+            </div>
+            <div class=" num num_9">
+                <div>9</div>
+            </div>
+            <div class=" num num_10">
+                <div>10</div>
+            </div>
+            <div class=" num num_11">
+                <div>11</div>
+            </div>
+
+        </div>
+        <div class="second" id="second">
+            <div></div>
+        </div>
+        <div class="minute" id="minute">
+            <div></div>
+        </div>
+        <div class="hour" id="hour">
+            <div></div>
+        </div>
+        <div class="dot"></div>
+       
+    </div>
+</body>
+<script>
+    let second = document.getElementById("second");
+    let minute = document.getElementById("minute");
+    let hour = document.getElementById("hour");
+    function _clock() {
+        let tm = new Date();
+        let h = tm.getHours();
+        let s = tm.getSeconds();
+        let m = tm.getMinutes();
+        let hdeg = (h % 12) * 30 + m * 0.5;
+        let sdeg = s * 6;
+        let mdeg = m * 6;
+        minute.style.transform = `rotate(${mdeg}deg)`;
+        second.style.transform = `rotate(${sdeg}deg)`;
+        hour.style.transform = `rotate(${hdeg}deg)`;
+
+    }
+    setInterval(_clock, 1000);
+</script>
+
+</html>
