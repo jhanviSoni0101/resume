@@ -276,6 +276,28 @@
     </div>
 </body>
 <script>
-   
+    let projects = [{
+        name: "Calculator",
+        desc: "Simple calculator using HTML, CSS, JavaScript",
+        link: "https://github.com/jhanviSoni0101/calculator.html"
+    },
+    {
+        name: "Calendar",
+        desc: "Simple calendar using HTML, CSS and JavaScript",
+        link: "https://github.com/jhanviSoni0101/calendar.html"
+    },
+];
+    let container = document.querySelector(".project-container");
+    projects.forEach(function (p) {
+        let card = `
+        <div class="project-card">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <a href="${p.link}" target="_blank">View Project</a>
+        </div>
+        `;
+        container.innerHTML += card;
+    });
 </script>
+
 </html>
