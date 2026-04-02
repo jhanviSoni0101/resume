@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: linear-gradient(180deg, rgb(78, 151, 184), rgb(199, 197, 197));
+        }
+
+        #timecontainer {
+            position: relative;
+            width: 100px;
+            height: 100px; 
+        }
+        
+        #timecontainer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            border: 1px solid rgb(255, 253, 253);
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotate 2s linear infinite;
+        }
+
+        #time {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 34px;
+        }
+
+        #startbtn {
+            display: none;
+            cursor: pointer;
+            padding: 10px 30px;
+            margin: 20px;
+            background-image: linear-gradient(45deg, rgb(0, 170, 255), white);
+            border: none;
+            color: rgb(6, 6, 73);
+            font-size: 20px;
+            border-bottom-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #game {
+            width: 500px;
+            height: 500px;
+            border: 2px solid white;
+            position: relative;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #box {
+            width: 12vw;
+            height: 12vw;
+            max-width: 50px;
+            max-height: 50px;
+            background-color: white;
+            position: absolute;
+            cursor: pointer;
+            display: none;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            font-size: 20px;
+            color: white;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+                border: 1px solid rgb(255, 254, 254);
+            }
+
+            to {
+                transform: rotate(360deg);
+                border: 4px solid rgb(13, 56, 108);
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex justify-content-center align-items-center flex-column text-center">
+    <div id="timecontainer">
+        <div id="time">5</div>
+    </div>
+    <button id="startbtn">Play Game</button>
+    <div id="game">
+        <div id="box"></div>
+        <div id="score">0</div>
+    </div>
+</body>
+<script>
+    let t = 5;
+    let timecontainer = document.getElementById("timecontainer");
+    let time = document.getElementById("time");
+    let startbtn = document.getElementById("startbtn");
+    let game = document.getElementById("game");
+    let box = document.getElementById("box");
+    let score = document.getElementById("score");
+    let Score = 0;
+    let timer = setInterval(function () {
+        time.innerHTML = t;
+        t--;
+        if (t < 0) {
+            clearInterval(timer);
+            time.innerHTML = "";
+            timecontainer.style.display = "none";
+            time.style.display = "none";
+            startbtn.style.display = "inline";
+        }
+    }, 1000);
+    startbtn.onclick = () => {
+        startbtn.style.display = "none";
+        game.style.display = "block";
+        box.style.display = "block";
+        Score = 0;
+        score.innerText = "Score:" + Score;
+    }
+    let Gametimer = setInterval(() => {
+        box.style.left = Math.floor(Math.random() * 450) + "px";
+        box.style.top = Math.floor(Math.random() * 450) + "px";
+
+    }, 1000);
+
+    box.onclick = () => {
+        Score++;
+        score.innerText = "Score:" + Score;
+    }
+
+    setTimeout(() => {
+        clearInterval(Gametimer);
+        box.style.display = "none";
+        alert("Game over. Your Score:" + Score);
+        game.style.display = "none";
+    }, 30000);
+</script>
+
+</html>
+
