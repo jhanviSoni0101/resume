@@ -1,22 +1,281 @@
-<?php 
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <?php include('./components/headers.php') ?>
+    <title>MyPortfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Shantell Sans", cursive;
+        }
+
+        body {
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .intro {
+            padding-top: 70px;
+            height: 100vh;
+            background-image: linear-gradient(120deg, #a6c1ee, #fbc2eb);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .intro h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            font-size: 22px;
+        }
+
+        .arrow {
+            margin-top: 40px;
+            font-size: 28px;
+            animation: move 1.5s infinite;
+        }
+
+        @keyframes move {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(10px);
+            }
+        }
+
+        .journey {
+            background: white;
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .box {
+            background-color: #f3f3f3;
+            padding: 25px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: #333;
+            display: block;
+            width: 300px;
+        }
+
+        .box:hover {
+            background: #a6c1ee;
+            color: white;
+            transform: translateY(-10px);
+        }
+
+        .box h3 {
+            margin-top: 10px;
+        }
+
+        .about {
+            padding: 60px 20px;
+            text-align: center;
+            background: #f3f3f3;
+        }
+
+        .about h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .about p {
+            max-width: 650px;
+            margin: auto;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .projects {
+            padding: 60px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .projects h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .project-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .project-card {
+            background: #f9f9f9;
+            padding: 20px;
+            width: 250px;
+            border-radius: 12px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .project-card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #0d6efd;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .project-card a:hover {
+            background: #084298;
+        }
+
+        .connect {
+            background: linear-gradient(120deg, #fbc2eb, #a6c1ee);
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .connect h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .icons a {
+            color: white;
+            font-size: 30px;
+            margin: 10px;
+            transition: 0.3s;
+        }
+
+        .icons a:hover {
+            color: #222;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .intro h1 {
+                font-size: 32px;
+            }
+
+            .intro p {
+                font-size: 18px;
+            }
+
+            .box,
+            .project-card {
+                width: 80%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <?php include('./components/header.php') ?>
-    <div class="container main">
-        <h1>Welcome🌸</h1>
-        <p>Something new is coming...🤭</p>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#journey">Journey</a>
+        <a href="#projects">My Projects</a>
+        <a href="#about">About</a>
+        <a href="#connect">Connect</a>
+    </div>
+    <div class="intro" id="home">
+        <h1>Hi! I'm Jahnvi.</h1>
+        <p>A Web Learner.</p>
+        <div class="arrow">↓</div>
+    </div>
+    <div class="journey" id="journey">
+        <a href="html-projects.html" class="box">🧠
+            <h3>HTML</h3>
+            <p>My first step in web design.</p>
+        </a>
+        <a href="css-projects.html" class="box">🎨
+            <h3>CSS</h3>
+            <p>I started making things beautiful.</p>
+        </a>
+        <a href="js-projects.html" class="box">⚡
+            <h3>JavaScript</h3>
+            <p>Adding logic & interactions.</p>
+        </a>
+        <a href="bootstrap-projects.html" class="box">📦
+            <h3>Bootstrap</h3>
+            <p>Responsive design framework.</p>
+        </a>
+        <a href="jquery-projects.html" class="box">🔥
+            <h3>jQuery</h3>
+            <p>Simplifying JavaScript work.</p>
+        </a>
+    </div>
+    <div class="about" id="about">
+        <h2>About Me</h2>
+        <p>
+            I have completed my BCA and I am a web developer. I have learned HTML, CSS, JavaScript, Bootstrap, and
+            jQuery. I enjoy making creative and responsive websites. Currently, I am learning backend development to
+            become a full-stack developer.
+        </p>
+    </div>
+    <div class="projects" id="projects">
+        <h2>My Projects</h2>
+        <div class="project-container">
+        </div>
+    </div>
+    <div class="connect" id="connect">
+        <h2>Let's Connect 💬</h2>
+        <div class="icons">
+            <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/jhanviSoni0101"><i class="fa-brands fa-github"></i></a>
+            <a href=""><i class="fa-brands fa-linkedin"></i></a>
+        </div>
     </div>
 </body>
-
+<script>
+   
+</script>
 </html>
