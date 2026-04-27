@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: rgb(151, 71, 221);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            color: yellow;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .main {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .bhjns {
+            width: 65%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .radhe-photos {
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .radhe-photos img {
+            width: 48%;
+            border-radius: 12px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .bhajan-card {
+            background: rgb(244, 244, 189);
+            color: rgb(79, 0, 128);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            width: 300px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .bhajan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            background: rgb(236, 236, 133);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+
+            .main {
+                flex-direction: column;
+            }
+
+            .bhjns,
+            .radhe-photos {
+                width: 100%;
+            }
+
+            .radhe-photos img {
+                width: 100%;
+                height: 400px;
+            }
+
+            .bhajan-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>RadhaKrishna Bhajns💜🦚</h1>
+        <div class="main">
+            <div class="bhjns" id="bhjn-list"></div>
+
+            <div class="radhe-photos">
+                <img src="image1.jpg">
+                <img src="image2.jpg">
+                <img src="image3.webp">
+                <img src="image4.jfif">
+                <img src="image5.jpg">
+                <img src="image6.jfif">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let bhjnlist = document.getElementById('bhjn-list');
+    let bhjns = [
+        {
+            name: "RadhaRani 28 naam",
+            link: "https://youtu.be/nrKBWz1WWwk?si=8OU0VXV6KdQMNpWU"
+        },
+        {
+            name: "Kese Na Itrao Me",
+            link: "https://youtu.be/7Ulwn5L92GU?si=8rXoifLpnj-F7DJe"
+        },
+        {
+            name: "Maiya viyah mero krwade",
+            link: "https://youtu.be/H0bLwY9dBZ0?si=Z5pmPyTjdsAsZ-UH"
+        },
+        {
+            name: "Mai Bairagan",
+            link: "https://youtu.be/LLAvgTeXXy8?si=R-Df4C0laXRWb-HS"
+        },
+        {
+            name: "krishn mashup",
+            link: "https://youtu.be/Q9f0cruMVDM?si=eXpu_8E_wpT6qfQJ"
+        },
+        {
+            name: "Jay Jay RadhaRaman Hari Bol",
+            link: "https://youtu.be/hn-OErZfE5s?si=wCz-n9VTWfjbrzq8"
+        },
+        {
+            name: "Koi Jaye jo Vrindhavan",
+            link: "https://youtu.be/r02CMfdren4?si=EPGslYIuP6KtfnWw"
+        },
+        {
+            name: "RadhaRani Mashup",
+            link: "https://youtu.be/TrsCXBKp7CA?si=kK1eYhwTVhG1J629"
+        },
+        {
+            name: "Mere giniyo na Apradh",
+            link: "https://youtu.be/k3GhYwmYLkI?si=D-z7KxTUOVsKDRMu"
+        },
+        {
+            name: "Kanhiya Kanhiya pukara krenge",
+            link: "https://youtu.be/-ux8g5Pv2yQ?si=uZS5yA4Ozzq-5Y30"
+        },
+        {
+            name: "Mero Man Vrindhavan me Atko",
+            link: "https://youtu.be/3o95qn8BjdQ?si=b0JipeFQ4BfPwcgE"
+        },
+        {
+            name: "Nimai Pathshala Anthem",
+            link: "https://youtu.be/mO6uAf0bfIY?si=ahTNM06YOIlCzBtH"
+        },
+        {
+            name: "who is shree Radha?",
+            link: "https://youtu.be/GNXL4dm49BI?si=ALOOEXSOQFIx4PXA"
+        },
+        {
+            name: "Mera Apki kripa se",
+            link: "https://youtu.be/C9EespXQCGE?si=nEemY812ebdHv6nq"
+        },
+        {
+            name: "Mithe Ras se Bharyori Radharani lage",
+            link: "https://youtu.be/SMBeENVIFjk?si=bOH05ZX8DPS3QLOm"
+        },
+        {
+            name: "Pyaro Vrindhavan",
+            link: "https://youtu.be/kNK7XYZcyBM?si=KH0xIyF_QreGKCkg"
+        },
+        {
+            name: "Mere Banke Bihari Laal",
+            link: "https://youtu.be/Cm0MZ5WfTzw?si=ZsHsGlm0lxnvXA7F"
+        },
+        {
+            name: "Mero Man lagyo Barsane me",
+            link: "https://youtu.be/v9Krkfw8Eg0?si=_ZB7C7ZR-T4w6sTf"
+        },
+        {
+            name: "Tujse Preet Lagi h Radhe",
+            link: "https://youtu.be/HnlXl_hGPiE?si=99SwVvLxHwnvOVXP"
+        },
+        {
+            name: "Sun Radhika Dulhari",
+            link: "https://youtu.be/GJwGnVhHvT8?si=lhb9zOLzt3VE17se"
+        },
+        {
+            name: "Yeh to bta do Barsane wali",
+            link: "https://youtu.be/9FMBQkGP40Y?si=abR2paIBdqn2mUCU"
+        },
+        {
+            name: "Govrdhan Wasi Saware",
+            link: "https://youtu.be/cue_sOMaNs4?si=93RJVwUk4s6pKfGU"
+        },
+        {
+            name: "Geet Govindam",
+            link: "https://youtu.be/1JogRXOn_yA?si=iCgXxmeVB7No8KXC"
+        },
+        {
+            name: "Vrikshavalli Hare Krishna",
+            link: "https://youtu.be/r6WBtDnLxwM?si=QuBlk1fo6bSLgQUt"
+        },
+        {
+            name: "Radha Kripa Katash",
+            link: "https://youtu.be/rR5eS_wAEg4?si=N4I6f9KIr1JLZO8B"
+        },
+        {
+            name: "Jay Jay RadhaVallbah Shree harivansh",
+            link: "https://youtu.be/Xs8kdWHK8ow?si=pg6JzdXLW58DOcgl"
+        },
+        {
+            name: "Sankat Harengi Karengi Bhali Vrishbhan Ki Lali",
+            link: "https://youtu.be/mP5m8tgTgH8?si=TKSjEJO4MK4u4EVI"
+        },
+        {
+            name: "Hamare Maiye Shyama Ju ko Raaj",
+            link: "https://youtu.be/KW5p31yGn4A?si=sMyGKeQutyqRTBi2"
+        },
+        {
+            name: "जहाँ बरसाना है वही बस जाना है |",
+            link: "https://youtu.be/XRWlR5-8LUg?si=dBHE4tmqYvVn02mh"
+        },
+        {
+            name: "मेरी बरसाने कुटिया बना दे लाड़ली|",
+            link: "https://youtu.be/YHidnjb92KY?si=dJpw_gET4k-jgG6x"
+        }
+    ];
+    bhjns.forEach(bhjn => {
+        bhjnlist.innerHTML += `
+        <a href="${bhjn.link}" target="_blank">
+        <div class="bhajan-card">
+          ${bhjn.name}
+        </div>
+        </a>`
+    })
+</script>
+
+</html>   
